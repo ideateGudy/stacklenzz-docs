@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Activity,
@@ -32,6 +32,24 @@ export default function LandingPage() {
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [codeFramework, setCodeFramework] = useState<"express" | "nestjs" | "react" | "nextjs">("express");
+
+  // Lock body & html scroll when mobile menu drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [mobileMenuOpen]);
 
   const frameworkSnippets: Record<
     string,
@@ -147,21 +165,7 @@ export default function AdminObservabilityPage() {
       }}
     >
       {/* Top Navbar */}
-      <header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          height: "64px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 2rem",
-          backgroundColor: "rgba(9, 13, 22, 0.85)",
-          backdropFilter: "blur(16px)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-        }}
-      >
+      <header className="sticky top-0 z-50 h-[64px] flex items-center justify-between px-4 sm:px-8 bg-[#090d16]/85 backdrop-blur-xl border-b border-white/10 w-full">
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <StacklenzzLogo size={36} />
           <div>
@@ -284,19 +288,22 @@ export default function AdminObservabilityPage() {
         </AnimatePresence>
       </header>
 
+      {/* Full-screen backdrop blur overlay for mobile menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 top-[64px] bg-black/80 backdrop-blur-xl z-40 md:hidden cursor-pointer"
+          />
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
-      <section
-        style={{
-          position: "relative",
-          padding: "5rem 1.5rem 4rem",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <section className="relative px-4 sm:px-6 pt-10 pb-8 sm:pt-20 sm:pb-16 max-w-[1200px] mx-auto text-center flex flex-col items-center w-full">
         {/* Glow backdrop decoration with subtle pulse */}
         <motion.div
           animate={{
@@ -313,7 +320,8 @@ export default function AdminObservabilityPage() {
             top: "20%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "550px",
+            width: "100%",
+            maxWidth: "550px",
             height: "280px",
             background: "radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 80%)",
             filter: "blur(60px)",
@@ -327,26 +335,10 @@ export default function AdminObservabilityPage() {
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.6rem",
-            padding: "0.4rem 0.95rem",
-            borderRadius: "9999px",
-            background: "rgba(15, 23, 42, 0.8)",
-            border: "1px solid rgba(99, 102, 241, 0.35)",
-            backdropFilter: "blur(12px)",
-            color: "#c7d2fe",
-            fontSize: "0.82rem",
-            fontWeight: 600,
-            marginBottom: "1.5rem",
-            position: "relative",
-            zIndex: 1,
-            boxShadow: "0 0 20px -5px rgba(99, 102, 241, 0.25)",
-          }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-indigo-500/35 backdrop-blur-md text-indigo-200 text-xs sm:text-sm font-semibold mb-6 relative z-10 shadow-[0_0_20px_-5px_rgba(99,102,241,0.25)] max-w-[92vw] sm:max-w-none text-center justify-center"
         >
           {/* Animated radar/sonar ping dot */}
-          <span style={{ position: "relative", display: "flex", width: "9px", height: "9px" }}>
+          <span style={{ position: "relative", display: "flex", width: "9px", height: "9px", flexShrink: 0 }}>
             <span
               style={{
                 position: "absolute",
@@ -370,8 +362,7 @@ export default function AdminObservabilityPage() {
               }}
             />
           </span>
-          <span>Full-Stack Telemetry for Node.js Backends & React UIs</span>
-          
+          <span className="truncate max-w-[260px] sm:max-w-none">Full-Stack Telemetry for Node.js Backends</span>
         </motion.div>
 
         {/* Headline */}
@@ -379,16 +370,7 @@ export default function AdminObservabilityPage() {
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-          style={{
-            fontSize: "clamp(2.4rem, 5vw, 4rem)",
-            fontWeight: 900,
-            lineHeight: 1.15,
-            letterSpacing: "-0.04em",
-            maxWidth: "920px",
-            margin: "0 auto 1.25rem",
-            position: "relative",
-            zIndex: 1,
-          }}
+          className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tight max-w-[920px] mx-auto mb-4 relative z-10"
         >
           Effortless Observability,{" "}
           <span
@@ -407,15 +389,7 @@ export default function AdminObservabilityPage() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
-          style={{
-            fontSize: "clamp(1rem, 2vw, 1.2rem)",
-            color: "#94a3b8",
-            maxWidth: "740px",
-            margin: "0 auto 2.5rem",
-            lineHeight: 1.6,
-            position: "relative",
-            zIndex: 1,
-          }}
+          className="text-sm sm:text-lg md:text-xl text-slate-400 max-w-[740px] mx-auto mb-8 leading-relaxed relative z-10 px-2"
         >
           A production-grade instrumentation toolkit providing Express and NestJS telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React & Next.js admin dashboards.
         </motion.p>
@@ -425,118 +399,132 @@ export default function AdminObservabilityPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1rem",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
-            zIndex: 1,
-            marginBottom: "2.5rem",
-          }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto px-4 relative z-10 mb-10"
         >
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
             <Link
               href="/docs"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                padding: "0.8rem 1.6rem",
-                borderRadius: "0.6rem",
-                background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
-                color: "#ffffff",
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                textDecoration: "none",
-                boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.5)",
-              }}
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-sm sm:text-base font-semibold no-underline shadow-[0_10px_25px_-5px_rgba(79,70,229,0.5)] w-full sm:w-auto"
             >
               Explore Documentation <ArrowRight size={16} />
             </Link>
           </motion.div>
 
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
             <Link
               href="/docs/observability-dashboard"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                padding: "0.8rem 1.6rem",
-                borderRadius: "0.6rem",
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.12)",
-                color: "#f8fafc",
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                textDecoration: "none",
-                backdropFilter: "blur(10px)",
-              }}
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white/5 border border-white/12 text-slate-100 text-sm sm:text-base font-semibold no-underline backdrop-blur-md w-full sm:w-auto"
             >
-              <Play size={15} color="#38bdf8" /> Launch Demo Console
+              <Play size={15} className="text-sky-400" /> Launch Demo Console
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* Live Observability Telemetry Radar Pulse Strip */}
+        {/* Live Observability Telemetry Radar Strip */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-          className="w-full max-w-[720px] mx-auto flex flex-col sm:flex-row items-center justify-around gap-4 sm:gap-6 p-3 sm:p-3.5 mb-8 rounded-xl bg-slate-900/85 border border-white/10 backdrop-blur-md shadow-2xl relative z-10"
+          className="w-full max-w-[720px] mx-auto mb-8 relative z-10"
         >
-          {/* Pulse Metric 1: Ingestion Heartbeat */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-center sm:justify-start">
-            <span className="relative flex w-2.5 h-2.5 shrink-0">
-              <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-80 animate-ping" />
-              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-emerald-500" />
-            </span>
-            <div className="text-left">
-              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
-                Heartbeat
+          {/* Mobile view: Transparent 3-column minimal pill capsules */}
+          <div className="grid sm:hidden grid-cols-3 gap-2 w-full px-1">
+            {/* Metric 1 */}
+            <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-emerald-500/[0.07] border border-emerald-500/20 backdrop-blur-sm text-center">
+              <div className="flex items-center gap-1 mb-1">
+                <span className="relative flex w-1.5 h-1.5 shrink-0">
+                  <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-80 animate-ping" />
+                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-emerald-400" />
+                </span>
+                <span className="text-[9.5px] text-slate-400 uppercase font-bold tracking-wider">Heartbeat</span>
               </div>
-              <div className="text-xs sm:text-[13px] font-bold text-emerald-400 font-mono">
-                Healthy • 99.99%
+              <div className="text-xs font-extrabold text-emerald-400 font-mono">
+                99.99%
               </div>
             </div>
-          </div>
 
-          <div className="hidden sm:block w-px h-6 bg-white/10" />
-
-          {/* Pulse Metric 2: Real-time Latency (p99) */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-center sm:justify-start">
-            <span className="relative flex w-2.5 h-2.5 shrink-0">
-              <span className="absolute inline-flex w-full h-full rounded-full bg-sky-400 opacity-80 animate-ping" />
-              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-sky-400" />
-            </span>
-            <div className="text-left">
-              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
-                Latency (p99)
+            {/* Metric 2 */}
+            <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-sky-500/[0.07] border border-sky-500/20 backdrop-blur-sm text-center">
+              <div className="flex items-center gap-1 mb-1">
+                <span className="relative flex w-1.5 h-1.5 shrink-0">
+                  <span className="absolute inline-flex w-full h-full rounded-full bg-sky-400 opacity-80 animate-ping" />
+                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-sky-400" />
+                </span>
+                <span className="text-[9.5px] text-slate-400 uppercase font-bold tracking-wider">Latency</span>
               </div>
-              <div className="text-xs sm:text-[13px] font-bold text-sky-400 font-mono">
+              <div className="text-xs font-extrabold text-sky-400 font-mono">
                 14.2 ms
               </div>
             </div>
+
+            {/* Metric 3 */}
+            <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-purple-500/[0.07] border border-purple-500/20 backdrop-blur-sm text-center">
+              <div className="flex items-center gap-1 mb-1">
+                <span className="relative flex w-1.5 h-1.5 shrink-0">
+                  <span className="absolute inline-flex w-full h-full rounded-full bg-purple-400 opacity-80 animate-ping" />
+                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-purple-400" />
+                </span>
+                <span className="text-[9.5px] text-slate-400 uppercase font-bold tracking-wider">Throughput</span>
+              </div>
+              <div className="text-xs font-extrabold text-purple-400 font-mono">
+                1.4k req/s
+              </div>
+            </div>
           </div>
 
-          <div className="hidden sm:block w-px h-6 bg-white/10" />
-
-          {/* Pulse Metric 3: Active Stream Throughput */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-center sm:justify-start">
-            <span className="relative flex w-2.5 h-2.5 shrink-0">
-              <span className="absolute inline-flex w-full h-full rounded-full bg-purple-500 opacity-80 animate-ping" />
-              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-purple-500" />
-            </span>
-            <div className="text-left">
-              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
-                Throughput
+          {/* Desktop view: Floating capsule pill bar */}
+          <div className="hidden sm:flex items-center justify-around gap-6 px-6 py-3 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-xl">
+            {/* Metric 1 */}
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex w-2.5 h-2.5 shrink-0">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-80 animate-ping" />
+                <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-emerald-500" />
+              </span>
+              <div className="text-left">
+                <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                  Heartbeat
+                </div>
+                <div className="text-[13px] font-bold text-emerald-400 font-mono">
+                  Healthy • 99.99%
+                </div>
               </div>
-              <div className="text-xs sm:text-[13px] font-bold text-purple-400 font-mono">
-                1,420 req/s
+            </div>
+
+            <div className="w-px h-5 bg-white/10" />
+
+            {/* Metric 2 */}
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex w-2.5 h-2.5 shrink-0">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-sky-400 opacity-80 animate-ping" />
+                <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-sky-400" />
+              </span>
+              <div className="text-left">
+                <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                  Latency (p99)
+                </div>
+                <div className="text-[13px] font-bold text-sky-400 font-mono">
+                  14.2 ms
+                </div>
+              </div>
+            </div>
+
+            <div className="w-px h-5 bg-white/10" />
+
+            {/* Metric 3 */}
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex w-2.5 h-2.5 shrink-0">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-purple-500 opacity-80 animate-ping" />
+                <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-purple-500" />
+              </span>
+              <div className="text-left">
+                <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                  Throughput
+                </div>
+                <div className="text-[13px] font-bold text-purple-400 font-mono">
+                  1,420 req/s
+                </div>
               </div>
             </div>
           </div>
@@ -625,13 +613,7 @@ export default function AdminObservabilityPage() {
           </p>
         </motion.div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "1.5rem",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full">
           {/* Pillar 1 */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
@@ -639,16 +621,7 @@ export default function AdminObservabilityPage() {
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.45, delay: 0.05 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            style={{
-              backgroundColor: "rgba(15, 23, 42, 0.5)",
-              border: "1px solid rgba(255, 255, 255, 0.07)",
-              borderRadius: "1rem",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-            }}
+            className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col relative overflow-hidden"
           >
             <div
               style={{
@@ -705,16 +678,7 @@ export default function AdminObservabilityPage() {
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.45, delay: 0.15 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            style={{
-              backgroundColor: "rgba(15, 23, 42, 0.5)",
-              border: "1px solid rgba(255, 255, 255, 0.07)",
-              borderRadius: "1rem",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-            }}
+            className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col relative overflow-hidden"
           >
             <div
               style={{
@@ -771,16 +735,7 @@ export default function AdminObservabilityPage() {
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.45, delay: 0.25 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            style={{
-              backgroundColor: "rgba(15, 23, 42, 0.5)",
-              border: "1px solid rgba(255, 255, 255, 0.07)",
-              borderRadius: "1rem",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-            }}
+            className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col relative overflow-hidden"
           >
             <div
               style={{
@@ -833,33 +788,18 @@ export default function AdminObservabilityPage() {
       </section>
 
       {/* Interactive Code Preview Section */}
-      <section
-        style={{
-          maxWidth: "1100px",
-          margin: "2rem auto 4rem",
-          padding: "0 1.5rem",
-          width: "100%",
-          boxSizing: "border-box",
-        }}
-      >
+      <section className="max-w-[1100px] mx-auto my-6 sm:my-16 px-4 w-full box-border">
         {/* Framework Tabs Bar */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap" }}>
+        <div className="flex items-center justify-center gap-2 mb-4 flex-wrap w-full">
           {(["express", "nestjs", "react", "nextjs"] as const).map((fw) => (
             <button
               key={fw}
               onClick={() => setCodeFramework(fw)}
-              style={{
-                padding: "0.45rem 1rem",
-                borderRadius: "0.5rem",
-                fontSize: "0.82rem",
-                fontWeight: 600,
-                border: "1px solid",
-                borderColor: codeFramework === fw ? "rgba(99, 102, 241, 0.5)" : "rgba(255, 255, 255, 0.08)",
-                background: codeFramework === fw ? "rgba(99, 102, 241, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                color: codeFramework === fw ? "#ffffff" : "#94a3b8",
-                cursor: "pointer",
-                transition: "all 0.15s ease",
-              }}
+              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold border cursor-pointer transition-all duration-150 ${
+                codeFramework === fw
+                  ? "border-indigo-500/50 bg-indigo-500/20 text-white shadow-lg"
+                  : "border-white/10 bg-white/5 text-slate-400 hover:bg-white/10"
+              }`}
             >
               {frameworkSnippets[fw].lang}
             </button>
@@ -950,73 +890,41 @@ export default function AdminObservabilityPage() {
       </section>
 
       {/* Call to Action Footer Banner */}
-      <section
-        style={{
-          marginTop: "auto",
-          padding: "4rem 1.5rem 3rem",
-          backgroundColor: "#030712",
-          borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-          textAlign: "center",
-        }}
-      >
+      <section className="mt-auto py-12 sm:py-20 px-4 sm:px-6 bg-[#030712] border-t border-white/10 text-center w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          style={{ maxWidth: "800px", margin: "0 auto" }}
+          className="max-w-[800px] mx-auto"
         >
-          <h2 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 1rem 0" }}>
+          <h2 className="text-2xl sm:text-4xl font-extrabold mb-3 text-white tracking-tight">
             Ready to monitor your application?
           </h2>
-          <p style={{ color: "#94a3b8", fontSize: "1rem", margin: "0 0 2rem 0", lineHeight: 1.6 }}>
+          <p className="text-slate-400 text-sm sm:text-base mb-8 max-w-[650px] mx-auto leading-relaxed">
             Browse the interactive documentation for copy-paste examples, CLI commands, and complete SDK reference.
           </p>
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto px-4">
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
               <Link
                 href="/docs"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.8rem 1.75rem",
-                  borderRadius: "0.5rem",
-                  background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
-                  color: "#ffffff",
-                  fontSize: "0.95rem",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  boxShadow: "0 0 20px rgba(79, 70, 229, 0.4)",
-                }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-sm sm:text-base font-semibold no-underline shadow-[0_0_20px_rgba(79,70,229,0.4)] w-full sm:w-auto"
               >
                 Go to Documentation <ArrowRight size={16} />
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
               <Link
                 href="/docs/observability-dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.8rem 1.75rem",
-                  borderRadius: "0.5rem",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  border: "1px solid rgba(255, 255, 255, 0.12)",
-                  color: "#ffffff",
-                  fontSize: "0.95rem",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/5 border border-white/12 text-white text-sm sm:text-base font-semibold no-underline w-full sm:w-auto"
               >
                 View Live Demo <ExternalLink size={14} />
               </Link>
             </motion.div>
           </div>
-          <div style={{ marginTop: "3rem", fontSize: "0.78rem", color: "#64748b" }}>
+          <div className="mt-10 text-xs text-slate-500">
             Stacklenzz • MIT Licensed • Built with Node.js & React
           </div>
         </motion.div>

@@ -3,7 +3,7 @@ allowBuilds:
   sharp: false
   unrs-resolver: false
 minimumReleaseAgeExclude:
-  - '@stacklenzz/ui@0.1.0'
+  - '@stacklenzz/ui@0.1.0 || 0.1.3'
   - '@stacklenzz/server@0.1.0 || 0.1.1 || 0.1.2 || 0.1.3 || 0.1.5'
   - '@stacklenzz/cli@0.1.0'
 onlyBuiltDependencies:

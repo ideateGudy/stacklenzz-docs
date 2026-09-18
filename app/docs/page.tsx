@@ -360,79 +360,79 @@ export default function DocumentationPage() {
               A turnkey monitoring system for Express and NestJS backends, paired with ready-to-mount React & Next.js admin dashboards. Collect Prometheus metrics, OpenTelemetry traces, and intelligent error fingerprints with zero external framework lock-in.
             </p>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem", margin: "1.5rem 0" }}>
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <div style={{ color: "#818cf8", marginBottom: "0.5rem" }}><Server size={22} /></div>
-                <h3 style={{ margin: "0 0 0.4rem 0", fontSize: "1rem" }}>Backend Core SDK</h3>
-                <p style={{ margin: 0, fontSize: "0.82rem", color: "#94a3b8" }}>
-                  One-line middleware setup for Express and NestJS. Exposes <code>/metrics</code> for Prometheus and <code>/api/observability/stats</code>.
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 w-full">
+              <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="text-indigo-400 mb-2"><Server size={22} /></div>
+                <h3 className="m-0 mb-1.5 text-base font-bold text-white tracking-tight">Backend Core SDK</h3>
+                <p className="m-0 text-xs sm:text-sm text-slate-400 leading-relaxed break-words">
+                  One-line middleware setup for Express and NestJS. Exposes <code className="break-all font-mono text-indigo-300">/metrics</code> for Prometheus and <code className="break-all font-mono text-indigo-300">/api/observability/stats</code>.
                 </p>
               </div>
 
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <div style={{ color: "#38bdf8", marginBottom: "0.5rem" }}><Activity size={22} /></div>
-                <h3 style={{ margin: "0 0 0.4rem 0", fontSize: "1rem" }}>React Dashboard UI</h3>
-                <p style={{ margin: 0, fontSize: "0.82rem", color: "#94a3b8" }}>
+              <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="text-sky-400 mb-2"><Activity size={22} /></div>
+                <h3 className="m-0 mb-1.5 text-base font-bold text-white tracking-tight">React Dashboard UI</h3>
+                <p className="m-0 text-xs sm:text-sm text-slate-400 leading-relaxed break-words">
                   6 pre-built dashboard layouts, 6 runtime color themes, deep error inspector with stack traces and breadcrumb timelines.
                 </p>
               </div>
 
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <div style={{ color: "#34d399", marginBottom: "0.5rem" }}><Terminal size={22} /></div>
-                <h3 style={{ margin: "0 0 0.4rem 0", fontSize: "1rem" }}>Zero-Config CLI</h3>
-                <p style={{ margin: 0, fontSize: "0.82rem", color: "#94a3b8" }}>
-                  Detects Next.js App/Pages Router and Vite. Installs UI routes, initializes configs, and validates connectivity with <code>doctor</code>.
+              <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="text-emerald-400 mb-2"><Terminal size={22} /></div>
+                <h3 className="m-0 mb-1.5 text-base font-bold text-white tracking-tight">Zero-Config CLI</h3>
+                <p className="m-0 text-xs sm:text-sm text-slate-400 leading-relaxed break-words">
+                  Detects Next.js App/Pages Router and Vite. Installs UI routes, initializes configs, and validates connectivity with <code className="break-all font-mono text-emerald-300">doctor</code>.
                 </p>
               </div>
             </div>
           </section>
 
           {/* Section: Quick Start */}
-          <section id="quickstart" style={{ marginBottom: "3.5rem" }}>
-            <h2 style={{ fontSize: "1.6rem", fontWeight: 700, margin: "0 0 1rem 0" }}>⚡️ Quick Start in 3 Steps</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <div style={{ background: "rgba(15, 23, 42, 0.6)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 700, fontSize: "0.95rem" }}>
-                    <span style={{ width: "22px", height: "22px", borderRadius: "50%", background: "#4f46e5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem" }}>1</span>
+          <section id="quickstart" className="mb-14">
+            <h2 className="text-2xl font-bold m-0 mb-4">⚡️ Quick Start in 3 Steps</h2>
+            <div className="flex flex-col gap-4 w-full">
+              <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
+                  <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-white">
+                    <span className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-xs text-white shrink-0">1</span>
                     Instrument Your Backend
                   </div>
                   <button
                     onClick={() => copyToClipboard("npm install @stacklenzz/server", "code-step1")}
-                    style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
+                    className="bg-transparent border-none text-slate-400 cursor-pointer flex items-center gap-1.5 text-xs hover:text-white transition-colors"
                   >
-                    {copiedCode === "code-step1" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
+                    {copiedCode === "code-step1" ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />} Copy
                   </button>
                 </div>
-                <pre style={{ margin: 0, padding: "0.75rem 1rem", backgroundColor: "#020617", borderRadius: "0.5rem", color: "#e2e8f0", fontFamily: "monospace", fontSize: "0.82rem" }}>
+                <pre className="m-0 p-3.5 bg-slate-950 rounded-xl color-slate-100 font-mono text-xs sm:text-sm max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border border border-white/5">
                   npm install @stacklenzz/server
                 </pre>
               </div>
 
-              <div style={{ background: "rgba(15, 23, 42, 0.6)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 700, fontSize: "0.95rem" }}>
-                    <span style={{ width: "22px", height: "22px", borderRadius: "50%", background: "#0284c7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem" }}>2</span>
+              <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
+                  <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-white">
+                    <span className="w-6 h-6 rounded-full bg-sky-600 flex items-center justify-center text-xs text-white shrink-0">2</span>
                     Scaffold Frontend Dashboard
                   </div>
                   <button
                     onClick={() => copyToClipboard("npx stacklenzz dashboard", "code-step2")}
-                    style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
+                    className="bg-transparent border-none text-slate-400 cursor-pointer flex items-center gap-1.5 text-xs hover:text-white transition-colors"
                   >
-                    {copiedCode === "code-step2" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
+                    {copiedCode === "code-step2" ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />} Copy
                   </button>
                 </div>
-                <pre style={{ margin: 0, padding: "0.75rem 1rem", backgroundColor: "#020617", borderRadius: "0.5rem", color: "#e2e8f0", fontFamily: "monospace", fontSize: "0.82rem" }}>
+                <pre className="m-0 p-3.5 bg-slate-950 rounded-xl color-slate-100 font-mono text-xs sm:text-sm max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border border border-white/5">
                   npx stacklenzz dashboard
                 </pre>
               </div>
 
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-5">
-                <div className="font-bold text-[15px] mb-1.5 flex items-center gap-2">
-                  <span className="w-[22px] h-[22px] rounded-full bg-emerald-600 flex items-center justify-center text-[11px]">3</span>
+              <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="font-bold text-sm sm:text-base mb-2 flex items-center gap-2.5 text-white">
+                  <span className="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-xs text-white shrink-0">3</span>
                   View Live Protected Route
                 </div>
-                <p className="m-0 mb-3 text-slate-400 text-[13.5px]">
+                <p className="m-0 mb-4 text-slate-400 text-xs sm:text-sm leading-relaxed break-words">
                   Navigate to your frontend application to inspect live traffic, latencies, and errors in real-time:
                 </p>
                 <div>
@@ -440,9 +440,9 @@ export default function DocumentationPage() {
                     href="/docs/observability-dashboard"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-indigo-600 text-white text-[13px] font-semibold no-underline hover:bg-indigo-500 transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-xs sm:text-sm font-semibold no-underline hover:bg-indigo-500 transition-colors shadow-lg"
                   >
-                    Open Live Demo Console <ExternalLink size={13} />
+                    Open Live Demo Console <ExternalLink size={14} />
                   </Link>
                 </div>
               </div>
@@ -472,9 +472,9 @@ export default function DocumentationPage() {
               ))}
             </div>
 
-            <div className="bg-slate-950 border border-white/10 rounded-xl p-4">
-              <div className="flex justify-between items-center mb-1.5">
-                <span className="text-[11.5px] text-slate-500 font-mono">Terminal</span>
+            <div className="bg-slate-950 border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+              <div className="flex justify-between items-center mb-2 flex-wrap gap-2">
+                <span className="text-xs text-slate-500 font-mono">Terminal</span>
                 <button
                   onClick={() => {
                     const cmd =
@@ -489,13 +489,13 @@ export default function DocumentationPage() {
                         : "npm install @stacklenzz/server @stacklenzz/ui lucide-react";
                     copyToClipboard(cmd, "install-cmd");
                   }}
-                  className="bg-transparent border-none text-slate-400 cursor-pointer flex items-center gap-1.5 text-[11.5px] hover:text-white"
+                  className="bg-transparent border-none text-slate-400 cursor-pointer flex items-center gap-1.5 text-xs hover:text-white"
                 >
                   {copiedCode === "install-cmd" ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />} Copy
                 </button>
               </div>
 
-              <pre className="m-0 text-slate-50 font-mono text-[13.5px] whitespace-pre-wrap">
+              <pre className="m-0 p-4 bg-slate-900/60 rounded-xl text-slate-50 font-mono text-xs sm:text-sm max-w-full overflow-x-auto whitespace-pre-wrap break-words border border-white/5 box-border">
                 {installPm === "cli" && `# 1. Scaffold Dashboard Route\nnpx stacklenzz dashboard\n\n# 2. Run Doctor to Validate Connection\nnpx stacklenzz doctor`}
                 {installPm === "npm" && `npm install @stacklenzz/server @stacklenzz/ui lucide-react`}
                 {installPm === "pnpm" && `pnpm add @stacklenzz/server @stacklenzz/ui lucide-react`}
@@ -506,12 +506,13 @@ export default function DocumentationPage() {
           </section>
 
           {/* Section: UI Dashboard */}
-          <section id="ui-dashboard" className="mb-14">
+          <section id="ui-dashboard" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">React & Next.js UI Dashboard</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               Render the unified <code>&lt;ObservabilityDashboard /&gt;</code> inside any client component:
             </p>
-            <pre className="m-0 p-4 bg-slate-950 border border-white/10 rounded-xl text-slate-50 font-mono text-[13px] leading-relaxed overflow-x-auto">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`"use client";
 
 import { ObservabilityDashboard } from "@stacklenzz/ui";
@@ -530,16 +531,17 @@ export default function AdminObservabilityPage() {
     </main>
   );
 }`}
-            </pre>
+              </pre>
+            </div>
           </section>
 
           {/* Section: Dashboard Themes */}
-          <section id="dashboard-themes" className="mb-14">
+          <section id="dashboard-themes" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">6 Built-in Runtime Themes & State Management</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
-              Switch themes live on the UI or configure your preferred default aesthetic. Powered by <strong>Redux Toolkit</strong> (<code>@reduxjs/toolkit</code> &amp; <code>react-redux</code>) with automatic <code>localStorage</code> persistence (<code>stacklenzz_theme</code>):
+              Switch themes live on the UI or configure your preferred default aesthetic. Powered by built-in state management with automatic <code>localStorage</code> persistence (<code>stacklenzz_theme</code>):
             </p>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3 mb-4">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 mb-4 min-w-0 max-w-full">
               {[
                 { name: "Tokyo Night", id: "tokyo-night", color: "#7aa2f7", desc: "Deep indigo & neon cyan" },
                 { name: "Nord", id: "nord", color: "#88c0d0", desc: "Arctic cool frost blues" },
@@ -548,65 +550,65 @@ export default function AdminObservabilityPage() {
                 { name: "Emerald Terminal", id: "emerald-terminal", color: "#10b981", desc: "Monochrome hacker terminal" },
                 { name: "Cyberpunk", id: "cyberpunk", color: "#f43f5e", desc: "High-contrast neon pink" },
               ].map((t) => (
-                <div key={t.id} className="bg-white/5 border border-white/5 rounded-lg p-3.5">
+                <div key={t.id} className="p-4 sm:p-5 bg-white/5 border border-white/10 rounded-xl min-w-0 max-w-full overflow-hidden box-border">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: t.color }}></span>
-                    <span className="font-semibold text-[13.5px]">{t.name}</span>
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: t.color }}></span>
+                    <span className="font-semibold text-[13.5px] truncate">{t.name}</span>
                   </div>
-                  <div className="text-[12px] text-slate-400">{t.desc}</div>
+                  <div className="text-[12px] text-slate-400 break-words">{t.desc}</div>
                 </div>
               ))}
             </div>
 
-            <div className="bg-slate-950 border border-white/10 rounded-xl p-4">
+            <div className="p-5 sm:p-6 bg-slate-950 border border-white/10 rounded-2xl min-w-0 max-w-full overflow-hidden box-border">
               <div className="text-[12.5px] font-bold text-indigo-400 uppercase mb-1.5">
-                ⚡️ Redux Toolkit &amp; LocalStorage Persistence
+                ⚡️ Automatic LocalStorage Persistence
               </div>
-              <p className="m-0 text-[13px] text-slate-300 leading-relaxed">
-                Theme selections automatically trigger <code>setTheme</code> actions via Redux Toolkit slices and persist immediately to <code>localStorage</code> (key: <code>stacklenzz_theme</code>). Upon page reloads or navigating between administrative views, the theme is instantly restored without visual flickering.
+              <p className="m-0 text-[13px] text-slate-300 leading-relaxed break-words">
+                Theme selections automatically persist immediately to <code>localStorage</code> (key: <code>stacklenzz_theme</code>). Upon page reloads or navigating between administrative views, your chosen theme is instantly restored without visual flickering.
               </p>
             </div>
           </section>
 
           {/* Section: CLI Commands */}
-          <section id="cli-commands" className="mb-14">
+          <section id="cli-commands" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-4">💻 Stacklenzz CLI Reference</h2>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
-              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4 min-w-0 max-w-full">
+              <div className="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <h4 className="m-0 mb-1.5 text-sky-400 text-[15px]">1. dashboard</h4>
-                <p className="m-0 mb-3 text-[13px] text-slate-400">
+                <p className="m-0 mb-3 text-[13px] text-slate-400 break-words">
                   Auto-detects framework and generates an admin dashboard route.
                 </p>
-                <code className="block p-2 bg-slate-950 rounded-md text-indigo-300 text-[12px] break-all">
+                <code className="block p-2.5 bg-slate-950 rounded-lg text-indigo-300 text-[12px] font-mono break-all border border-white/5">
                   stacklenzz dashboard
                 </code>
-                <span className="text-[11.5px] text-slate-500 mt-1.5 block">
+                <span className="text-[11.5px] text-slate-500 mt-2 block break-words">
                   Or with npx: <code>npx stacklenzz dashboard</code>
                 </span>
               </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+              <div className="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <h4 className="m-0 mb-1.5 text-emerald-400 text-[15px]">2. doctor</h4>
-                <p className="m-0 mb-3 text-[13px] text-slate-400">
+                <p className="m-0 mb-3 text-[13px] text-slate-400 break-words">
                   Validates dependencies and tests live telemetry reachability.
                 </p>
-                <code className="block p-2 bg-slate-950 rounded-md text-indigo-300 text-[12px] break-all">
+                <code className="block p-2.5 bg-slate-950 rounded-lg text-indigo-300 text-[12px] font-mono break-all border border-white/5">
                   stacklenzz doctor
                 </code>
-                <span className="text-[11.5px] text-slate-500 mt-1.5 block">
+                <span className="text-[11.5px] text-slate-500 mt-2 block break-words">
                   Or with npx: <code>npx stacklenzz doctor</code>
                 </span>
               </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+              <div className="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <h4 className="m-0 mb-1.5 text-amber-400 text-[15px]">3. init</h4>
-                <p className="m-0 mb-3 text-[13px] text-slate-400">
+                <p className="m-0 mb-3 text-[13px] text-slate-400 break-words">
                   Creates an interactive <code>observability.config.ts</code> configuration.
                 </p>
-                <code className="block p-2 bg-slate-950 rounded-md text-indigo-300 text-[12px] break-all">
+                <code className="block p-2.5 bg-slate-950 rounded-lg text-indigo-300 text-[12px] font-mono break-all border border-white/5">
                   stacklenzz init
                 </code>
-                <span className="text-[11.5px] text-slate-500 mt-1.5 block">
+                <span className="text-[11.5px] text-slate-500 mt-2 block break-words">
                   Or with npx: <code>npx stacklenzz init</code>
                 </span>
               </div>
@@ -614,12 +616,13 @@ export default function AdminObservabilityPage() {
           </section>
 
           {/* Section: Express */}
-          <section id="express" className="mb-14">
+          <section id="express" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">Express Instrumentation</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               Call <code>setupObservability(app)</code> before declaring your routes:
             </p>
-            <pre className="m-0 p-4 bg-slate-950 border border-white/10 rounded-xl text-slate-50 font-mono text-[13px] leading-relaxed overflow-x-auto">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import express from "express";
 import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
 
@@ -642,16 +645,18 @@ app.use((req, res) => {
 });
 
 app.listen(5000, () => console.log("Server listening on port 5000"));`}
-            </pre>
+              </pre>
+            </div>
           </section>
 
           {/* Section: NestJS */}
-          <section id="nestjs" className="mb-14">
+          <section id="nestjs" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">NestJS Module Setup</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               Import <code>ObservabilityModule.forRoot()</code> in your root <code>AppModule</code>:
             </p>
-            <pre className="m-0 p-4 bg-slate-950 border border-white/10 rounded-xl text-slate-50 font-mono text-[13px] leading-relaxed overflow-x-auto">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import { Module } from "@nestjs/common";
 import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 
@@ -664,63 +669,92 @@ import { ObservabilityModule } from "@stacklenzz/server/nestjs";
   ],
 })
 export class AppModule {}`}
-            </pre>
+              </pre>
+            </div>
           </section>
 
           {/* Section: Advanced SDK Features */}
-          <section id="sdk-advanced" className="mb-14">
-            <h2 className="text-2xl font-bold m-0 mb-3">⚡️ Advanced SDK Features & Telemetry APIs</h2>
-            <p className="text-slate-400 m-0 mb-4 text-[14px]">
-              Unlock powerful built-in telemetry utilities directly from <code>@stacklenzz/server</code>:
+          <section id="sdk-advanced" className="mb-14 min-w-0 max-w-full">
+            <h2 className="text-xl sm:text-2xl font-bold m-0 mb-3 break-words">⚡️ Advanced SDK Features &amp; Telemetry APIs</h2>
+            <p className="text-slate-400 m-0 mb-4 text-xs sm:text-[14px] leading-relaxed break-words">
+              Unlock powerful built-in telemetry utilities directly from <code className="break-all">@stacklenzz/server</code>:
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4.5">
-                <div className="text-sm font-bold text-sky-400 mb-1.5 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-sky-400"></span>
-                  1. Automatic Error Fingerprinting & Deduplication
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 min-w-0 max-w-full">
+              <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="flex items-start gap-2.5 mb-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400 shrink-0 mt-1"></span>
+                  <h3 className="m-0 text-sm sm:text-[15px] font-bold text-sky-400 leading-snug break-words">
+                    1. Automatic Error Fingerprinting &amp; Deduplication
+                  </h3>
                 </div>
-                <p className="text-xs text-slate-300 m-0 leading-relaxed">
-                  Error messages are dynamically sanitized (stripping IDs, timestamps, and numbers) to compute a deterministic hash. 50 recurring database failures appear as <strong>1 grouped incident card</strong> with occurrence counters (<code>x50</code>) and occurrence timestamps.
+                <p className="text-xs sm:text-[13px] text-slate-300 m-0 leading-relaxed break-words">
+                  Error messages are dynamically sanitized (stripping IDs, timestamps, and numbers) to compute a deterministic hash. 50 recurring database failures appear as <strong>1 grouped incident card</strong> with occurrence counters (<code className="px-1.5 py-0.5 rounded bg-slate-950 border border-white/10 text-sky-300 font-mono text-[11px] break-all">x50</code>) and occurrence timestamps.
                 </p>
               </div>
 
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4.5">
-                <div className="text-sm font-bold text-indigo-400 mb-1.5 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
-                  2. Programmatic Snapshot API (<code>getObservabilitySnapshot</code>)
+              <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="flex items-start gap-2.5 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 shrink-0 mt-1"></span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="m-0 text-sm sm:text-[15px] font-bold text-indigo-400 leading-snug break-words">
+                      2. Programmatic Snapshot API
+                    </h3>
+                    <div className="mt-1">
+                      <code className="inline-block px-2 py-0.5 rounded-md bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 font-mono text-[11px] sm:text-xs break-all">
+                        getObservabilitySnapshot
+                      </code>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-300 m-0 leading-relaxed">
+                <p className="text-xs sm:text-[13px] text-slate-300 m-0 leading-relaxed break-words mt-1">
                   Generate instant JSON operational snapshots directly inside your Node.js code to stream live metrics via WebSockets or push custom alerts to Slack/Discord.
                 </p>
               </div>
 
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4.5">
-                <div className="text-sm font-bold text-emerald-400 mb-1.5 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  3. Custom Prometheus Metrics (<code>Counter</code>, <code>Gauge</code>, <code>register</code>)
+              <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="flex items-start gap-2.5 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0 mt-1"></span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="m-0 text-sm sm:text-[15px] font-bold text-emerald-400 leading-snug break-words">
+                      3. Custom Prometheus Metrics
+                    </h3>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      <code className="px-1.5 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] sm:text-xs break-all">Counter</code>
+                      <code className="px-1.5 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] sm:text-xs break-all">Gauge</code>
+                      <code className="px-1.5 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] sm:text-xs break-all">register</code>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-300 m-0 leading-relaxed">
-                  Re-exports <code>prom-client</code> primitives directly. Register custom domain metrics (e.g. <code>orders_created_total</code>) without installing extra dependencies.
+                <p className="text-xs sm:text-[13px] text-slate-300 m-0 leading-relaxed break-words mt-1">
+                  Re-exports <code className="px-1.5 py-0.5 rounded bg-slate-950 border border-white/10 text-emerald-300 font-mono text-[11px] break-all">prom-client</code> primitives directly. Register custom domain metrics (e.g. <code className="px-1.5 py-0.5 rounded bg-slate-950 border border-white/10 text-emerald-300 font-mono text-[11px] break-all">orders_created_total</code>) without installing extra dependencies.
                 </p>
               </div>
 
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4.5">
-                <div className="text-sm font-bold text-amber-400 mb-1.5 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-                  4. OpenTelemetry Native Exports (<code>trace</code>, <code>context</code>)
+              <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+                <div className="flex items-start gap-2.5 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0 mt-1"></span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="m-0 text-sm sm:text-[15px] font-bold text-amber-400 leading-snug break-words">
+                      4. OpenTelemetry Native Exports
+                    </h3>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      <code className="px-1.5 py-0.5 rounded-md bg-amber-950/80 border border-amber-500/30 text-amber-300 font-mono text-[11px] sm:text-xs break-all">trace</code>
+                      <code className="px-1.5 py-0.5 rounded-md bg-amber-950/80 border border-amber-500/30 text-amber-300 font-mono text-[11px] sm:text-xs break-all">context</code>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-300 m-0 leading-relaxed">
-                  Direct access to OpenTelemetry API primitives to create custom spans and extract active trace IDs without installing <code>@opentelemetry/api</code> separately.
+                <p className="text-xs sm:text-[13px] text-slate-300 m-0 leading-relaxed break-words mt-1">
+                  Direct access to OpenTelemetry API primitives to create custom spans and extract active trace IDs without installing <code className="px-1.5 py-0.5 rounded bg-slate-950 border border-white/10 text-amber-300 font-mono text-[11px] break-all">@opentelemetry/api</code> separately.
                 </p>
               </div>
             </div>
 
-            <div className="bg-slate-950 border border-white/10 rounded-xl p-4">
-              <div className="text-xs font-bold text-slate-400 uppercase mb-2">
+            <div className="p-4 sm:p-6 bg-slate-950 border border-white/10 rounded-2xl min-w-0 max-w-full overflow-hidden box-border">
+              <div className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase mb-2 break-words">
                 Example: Programmatic Snapshot &amp; Custom Prometheus Metric
               </div>
-              <pre className="m-0 text-slate-200 font-mono text-xs leading-relaxed overflow-x-auto">
+              <pre className="m-0 text-slate-200 font-mono text-[11px] sm:text-xs leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import { getObservabilitySnapshot, Counter, register } from "@stacklenzz/server";
 
 // 1. Register custom business metric on the /metrics endpoint
@@ -740,38 +774,41 @@ console.log("Active Requests:", snapshot.summary.activeRequests);`}
           </section>
 
           {/* Section: Metrics & OpenTelemetry */}
-          <section id="metrics-tracing" className="mb-14">
+          <section id="metrics-tracing" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">📊 Metrics & OpenTelemetry Distributed Tracing</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               <code>@stacklenzz/server</code> provides built-in Prometheus metric collection via <code>prom-client</code> on <code>/metrics</code> and OpenTelemetry NodeSDK tracing:
             </p>
-            <div className="bg-slate-950 border border-white/10 rounded-xl p-4 mb-4">
+            <div className="p-5 sm:p-6 bg-slate-950 border border-white/10 rounded-2xl mb-4 min-w-0 max-w-full overflow-hidden box-border">
               <div className="text-xs font-bold text-sky-400 uppercase mb-2">
                 Prometheus Endpoints &amp; Automatic Metrics
               </div>
-              <ul className="m-0 pl-5 text-slate-300 text-xs flex flex-col gap-1.5 leading-relaxed">
+              <ul className="m-0 pl-5 text-slate-300 text-xs flex flex-col gap-2 leading-relaxed break-words">
                 <li><code>http_requests_total</code>: Counter tracking total HTTP requests broken down by method, route, and status code.</li>
                 <li><code>http_request_duration_seconds</code>: Histogram tracking P50, P95, and P99 latency percentiles across endpoints.</li>
                 <li><code>http_active_requests</code>: Gauge monitoring active in-flight requests.</li>
                 <li>Standard Node.js runtime metrics: CPU usage %, RSS/Heap memory, and V8 event loop lag.</li>
               </ul>
             </div>
-            <pre className="m-0 p-4 bg-slate-950 border border-white/10 rounded-xl text-slate-50 font-mono text-[13px] leading-relaxed overflow-x-auto">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import { initTracing, logger } from "@stacklenzz/server";
 
 // Tracing auto-initializes by default, injecting trace_id and span_id into Winston logs
 logger.info("Processing order checkout", { orderId: "ORD-9912" });
 // Output: {"level":"info","message":"Processing order checkout","trace_id":"4bf92f3577b34da6a3ce929d0e0e4736","span_id":"00f067aa0ba902b7"}`}
-            </pre>
+              </pre>
+            </div>
           </section>
 
           {/* Section: Error Intelligence & Breadcrumbs */}
-          <section id="error-intel" className="mb-14">
+          <section id="error-intel" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">🐞 Error Intelligence & Event Breadcrumbs</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               Trace user interactions and operations prior to a failure using event breadcrumbs:
             </p>
-            <pre className="m-0 p-4 bg-slate-950 border border-white/10 rounded-xl text-slate-50 font-mono text-[13px] leading-relaxed overflow-x-auto mb-4">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 mb-4 min-w-0 max-w-full overflow-hidden box-border">
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import { addBreadcrumb, logger } from "@stacklenzz/server";
 
 // 1. Record event trail before operations
@@ -785,16 +822,18 @@ try {
   // Breadcrumbs recorded above are automatically attached to this error card!
   logger.error(err);
 }`}
-            </pre>
+              </pre>
+            </div>
           </section>
 
           {/* Section: Auth & Middleware Security */}
-          <section id="security" className="mb-14">
+          <section id="security" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">🔒 Production Auth & Middleware Security</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               Because the dashboard displays live backend request timings and error logs, ensure the <code>/admin/observability</code> route is protected behind your application authentication layer:
             </p>
-            <pre className="m-0 p-4 bg-slate-950 border border-white/10 rounded-xl text-slate-50 font-mono text-[13px] leading-relaxed overflow-x-auto">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`// middleware.ts (Next.js App Router)
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -808,30 +847,31 @@ export function middleware(req: NextRequest) {
   }
   return NextResponse.next();
 }`}
-            </pre>
+              </pre>
+            </div>
           </section>
 
           {/* Section: Hosting Live on Vercel / Cloud */}
-          <section id="deployment" className="mb-14">
+          <section id="deployment" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">🚀 Hosting Live on Vercel / Cloud</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
               Deploying your frontend dashboard and backend services to production:
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0 max-w-full">
+              <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <div className="text-sm font-bold text-sky-400 mb-1.5">
                   Frontend (Vercel / Netlify / Render)
                 </div>
-                <p className="text-xs text-slate-300 m-0 leading-relaxed">
+                <p className="text-xs text-slate-300 m-0 leading-relaxed break-words">
                   Set the environment variable <code>NEXT_PUBLIC_OBSERVABILITY_URL</code> to point to your live backend endpoint (e.g. <code>https://api.yourdomain.com/api/observability/stats</code>).
                 </p>
               </div>
 
-              <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4.5">
+              <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <div className="text-sm font-bold text-indigo-400 mb-1.5">
                   Backend (AWS / GCP / Docker / Railway)
                 </div>
-                <p className="text-xs text-slate-300 m-0 leading-relaxed">
+                <p className="text-xs text-slate-300 m-0 leading-relaxed break-words">
                   Ensure CORS headers permit requests from your admin dashboard origin in <code>setupObservability</code> or NestJS <code>app.enableCors()</code>.
                 </p>
               </div>

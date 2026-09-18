@@ -573,44 +573,62 @@ export default function AdminObservabilityPage() {
           {/* Section: CLI Commands */}
           <section id="cli-commands" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-4">💻 Stacklenzz CLI Reference</h2>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4 min-w-0 max-w-full">
+            <p className="text-slate-400 m-0 mb-4 text-[14px]">
+              The CLI is accessible via <code>stacklenzz</code>, <code>stackcli</code>, or short command <code>stack</code>:
+            </p>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4 min-w-0 max-w-full mb-6">
               <div className="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <h4 className="m-0 mb-1.5 text-sky-400 text-[15px]">1. dashboard</h4>
                 <p className="m-0 mb-3 text-[13px] text-slate-400 break-words">
-                  Auto-detects framework and generates an admin dashboard route.
+                  Auto-detects framework and generates an admin dashboard route with your choice of 7 templates.
                 </p>
                 <code className="block p-2.5 bg-slate-950 rounded-lg text-indigo-300 text-[12px] font-mono break-all border border-white/5">
-                  stacklenzz dashboard
+                  npx stacklenzz dashboard
                 </code>
                 <span className="text-[11.5px] text-slate-500 mt-2 block break-words">
-                  Or with npx: <code>npx stacklenzz dashboard</code>
+                  Supports <code>--dry-run</code>, <code>-y</code>, and custom <code>--route</code>
                 </span>
               </div>
 
               <div className="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <h4 className="m-0 mb-1.5 text-emerald-400 text-[15px]">2. doctor</h4>
                 <p className="m-0 mb-3 text-[13px] text-slate-400 break-words">
-                  Validates dependencies and tests live telemetry reachability.
+                  Validates dependencies and tests live telemetry reachability against your backend.
                 </p>
                 <code className="block p-2.5 bg-slate-950 rounded-lg text-indigo-300 text-[12px] font-mono break-all border border-white/5">
-                  stacklenzz doctor
+                  npx stacklenzz doctor
                 </code>
                 <span className="text-[11.5px] text-slate-500 mt-2 block break-words">
-                  Or with npx: <code>npx stacklenzz doctor</code>
+                  Custom endpoint: <code>--endpoint &lt;url&gt;</code>
                 </span>
               </div>
 
               <div className="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
                 <h4 className="m-0 mb-1.5 text-amber-400 text-[15px]">3. init</h4>
                 <p className="m-0 mb-3 text-[13px] text-slate-400 break-words">
-                  Creates an interactive <code>observability.config.ts</code> configuration.
+                  Creates a strongly-typed <code>observability.config.ts</code> configuration file.
                 </p>
                 <code className="block p-2.5 bg-slate-950 rounded-lg text-indigo-300 text-[12px] font-mono break-all border border-white/5">
-                  stacklenzz init
+                  npx stacklenzz init
                 </code>
                 <span className="text-[11.5px] text-slate-500 mt-2 block break-words">
-                  Or with npx: <code>npx stacklenzz init</code>
+                  Instant TypeScript starter configuration
                 </span>
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6 bg-slate-950 border border-white/10 rounded-2xl min-w-0 max-w-full overflow-hidden box-border">
+              <div className="text-[12.5px] font-bold text-sky-400 uppercase mb-2">
+                7 Scaffolding Dashboard Templates Available in CLI:
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                <div>• <strong>Universal Console</strong> (Interactive switcher &amp; 6 themes)</div>
+                <div>• <strong>Full Backend Suite</strong> (Health, metrics, errors, latency)</div>
+                <div>• <strong>API Overview</strong> (Routes, traffic volume, HTTP codes)</div>
+                <div>• <strong>Backend Performance</strong> (P50, P95, P99 tail latency)</div>
+                <div>• <strong>Error Monitoring</strong> (Spikes, failure logs, breadcrumbs)</div>
+                <div>• <strong>Node.js Runtime</strong> (CPU %, RSS, Heap, Event Loop lag)</div>
+                <div className="sm:col-span-2">• <strong>Minimal Widget</strong> (Compact status badge for sidebars)</div>
               </div>
             </div>
           </section>
@@ -619,16 +637,21 @@ export default function AdminObservabilityPage() {
           <section id="express" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">Express Instrumentation</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
-              Call <code>setupObservability(app)</code> before declaring your routes:
+              Import <code>setupObservability</code> directly from <code>@stacklenzz/server/express</code> and call it before declaring routes:
             </p>
             <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
               <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import express from "express";
-import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
+import { setupObservability } from "@stacklenzz/server/express";
+import { logger, addBreadcrumb } from "@stacklenzz/server/core";
 
 const app = express();
 
-// Enables /metrics, Winston JSON logging & /api/observability/stats
+// Automatically configures:
+// 1. /metrics (Prometheus scraper)
+// 2. /api/observability/stats (JSON telemetry feed for dashboard UI)
+// 3. OpenTelemetry NodeSDK distributed tracing
+// 4. Winston JSON structured logging
 setupObservability(app, {
   serviceName: "billing-service",
   environment: "production",
@@ -653,9 +676,12 @@ app.listen(5000, () => console.log("Server listening on port 5000"));`}
           <section id="nestjs" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">NestJS Module Setup</h2>
             <p className="text-slate-400 m-0 mb-4 text-[14px]">
-              Import <code>ObservabilityModule.forRoot()</code> in your root <code>AppModule</code>:
+              Import <code>ObservabilityModule</code> directly from <code>@stacklenzz/server/nestjs</code> in your root <code>AppModule</code>:
             </p>
-            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border mb-4">
+              <div className="text-xs font-bold text-sky-400 uppercase mb-2">
+                Synchronous Module Setup
+              </div>
               <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
 {`import { Module } from "@nestjs/common";
 import { ObservabilityModule } from "@stacklenzz/server/nestjs";
@@ -665,6 +691,33 @@ import { ObservabilityModule } from "@stacklenzz/server/nestjs";
     ObservabilityModule.forRoot({
       serviceName: "auth-service",
       environment: process.env.NODE_ENV || "production",
+      autoInitTracing: true,
+    }),
+  ],
+})
+export class AppModule {}`}
+              </pre>
+            </div>
+
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <div className="text-xs font-bold text-indigo-400 uppercase mb-2">
+                Asynchronous Module Setup with ConfigService
+              </div>
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
+{`import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    ObservabilityModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        serviceName: config.get<string>("APP_NAME", "auth-service"),
+        environment: config.get<string>("NODE_ENV", "production"),
+      }),
     }),
   ],
 })
@@ -755,7 +808,7 @@ export class AppModule {}`}
                 Example: Programmatic Snapshot &amp; Custom Prometheus Metric
               </div>
               <pre className="m-0 text-slate-200 font-mono text-[11px] sm:text-xs leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
-{`import { getObservabilitySnapshot, Counter, register } from "@stacklenzz/server";
+{`import { getObservabilitySnapshot, Counter, register } from "@stacklenzz/server/core";
 
 // 1. Register custom business metric on the /metrics endpoint
 const ordersCounter = new Counter({

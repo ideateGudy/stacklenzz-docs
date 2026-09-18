@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="./public/logo.svg" alt="Stacklenzz Logo" width="80" height="80" />
+</p>
 
-## Getting Started
+<h1 align="center">Stacklenzz Documentation & Interactive Portal</h1>
 
-First, run the development server:
+<p align="center">
+  Official documentation website and live interactive demo console for the <b>Stacklenzz</b> observability ecosystem.
+</p>
+
+<p align="center">
+  <a href="https://stacklenzz.vercel.app/"><b>🌐 Live Documentation: https://stacklenzz.vercel.app/</b></a>
+</p>
+
+---
+
+## ⚡️ What This Project Contains
+
+- **Interactive Documentation Pages (`/docs`)**: Full guides covering `@stacklenzz/server` (Express & NestJS), `@stacklenzz/ui` (React/Next.js), and `@stacklenzz/cli`.
+- **Live Demo Console (`/docs/observability-dashboard`)**: Offline simulated telemetry playground running `@stacklenzz/ui` with realistic cluster mock data, 500 incident stack traces, event breadcrumb timelines, and all 6 runtime themes.
+- **Modern Landing Page (`/`)**: Interactive framework code switchers (Express, NestJS, React, Next.js), live status radar strips, and direct quick-start workflows.
+
+---
+
+## 🚀 Running Locally
 
 ```bash
-npm run dev
+# Install dependencies
+pnpm install
 # or
-yarn dev
-# or
+npm install
+
+# Start local development server
 pnpm dev
 # or
-bun dev
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the documentation portal.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Monorepo Packages Documented Here
 
-## Learn More
+1. **`@stacklenzz/server`**: Backend telemetry middleware for Express and NestJS (`/express`, `/nestjs`, `/core`).
+2. **`@stacklenzz/ui`**: Standalone React/Next.js dashboard components with Redux Toolkit and 6 runtime themes.
+3. **`@stacklenzz/cli`**: Zero-config CLI (`stacklenzz dashboard`, `stacklenzz doctor`, `stacklenzz init`).
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
+MIT © [Goodnews Azonubi](https://github.com/ideateGudy)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

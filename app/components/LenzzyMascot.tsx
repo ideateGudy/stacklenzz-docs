@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Activity, ShieldCheck, Sparkles, Terminal, Zap } from "lucide-react";
 
 interface LenzzyMascotProps {
   className?: string;

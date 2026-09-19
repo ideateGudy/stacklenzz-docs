@@ -399,7 +399,7 @@ export default function AdminObservabilityPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative z-20 mb-6 flex flex-col items-center justify-center pt-2"
+          className="relative z-20 mb-6 flex flex-col items-center justify-center pt-6 md:pt-2"
         >
           <LenzzyMascot />
         </motion.div>

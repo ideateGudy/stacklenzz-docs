@@ -9,8 +9,22 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://stacklenzz.vercel.app"),
   title: "Stacklenzz - Developer-First Node.js & React Observability",
   description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
+  openGraph: {
+    title: "Stacklenzz - Developer-First Node.js & React Observability",
+    description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
+    url: "https://stacklenzz.vercel.app",
+    siteName: "Stacklenzz",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Stacklenzz - Developer-First Node.js & React Observability",
+    description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
+  },
 };
 
 export default function RootLayout({

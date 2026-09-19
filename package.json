@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@stacklenzz/server": "^0.1.5",
-    "@stacklenzz/ui": "^0.1.3",
+    "@stacklenzz/ui": "^0.1.4",
     "clsx": "^2.1.1",
     "lucide-react": "^1.46.0",
     "motion": "^13.4.0",

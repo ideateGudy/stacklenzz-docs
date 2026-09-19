@@ -16,6 +16,7 @@ import {
   GitBranch,
   Layers,
   Play,
+  Radio,
   Server,
   ShieldCheck,
   Menu,
@@ -26,12 +27,75 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { StacklenzzLogo } from "./components/StacklenzzLogo";
+import { LenzzyMascot } from "./components/LenzzyMascot";
 import { CURRENT_PROJECT_VERSION } from "./docs/version";
+
+const LIVE_SERVER_LOGS = [
+  {
+    protocol: "HTTP/2",
+    badge: "EXPRESS",
+    badgeColor: "#38bdf8",
+    status: "200 OK",
+    statusColor: "#34d399",
+    action: "GET /api/v1/telemetry/stats",
+    meta: "1.2ms • gzip 3.8kb",
+    trace: "traceId: slz-8f92a",
+  },
+  {
+    protocol: "WINSTON",
+    badge: "STRUCTURED",
+    badgeColor: "#818cf8",
+    status: "LOG",
+    statusColor: "#818cf8",
+    action: 'logger.info("auth_handshake_complete", { cluster: "worker-1" })',
+    meta: "0 errors • level: info",
+    trace: "spanId: span-77c",
+  },
+  {
+    protocol: "METRICS",
+    badge: "PROMETHEUS",
+    badgeColor: "#fbbf24",
+    status: "+1,420/s",
+    statusColor: "#fbbf24",
+    action: "http_request_duration_seconds_bucket{le=\"0.05\"}",
+    meta: "p99: 14.2ms • scrape: OK",
+    trace: "registry: default",
+  },
+  {
+    protocol: "NESTJS",
+    badge: "INTERCEPTOR",
+    badgeColor: "#f43f5e",
+    status: "ACTIVE",
+    statusColor: "#38bdf8",
+    action: "ObservabilityModule: Intercepted route /api/orders",
+    meta: "heap: 42.6MB • rss: 88MB",
+    trace: "context: HttpAdapter",
+  },
+  {
+    protocol: "TELEMETRY",
+    badge: "HEARTBEAT",
+    badgeColor: "#34d399",
+    status: "99.99%",
+    statusColor: "#34d399",
+    action: "All telemetry probes active • 0 unhandled rejections",
+    meta: "Express & NestJS synced",
+    trace: "health: 100% UP",
+  },
+];
 
 export default function LandingPage() {
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [codeFramework, setCodeFramework] = useState<"express" | "nestjs" | "react" | "nextjs">("express");
+  const [activeLogIdx, setActiveLogIdx] = useState(0);
+
+  // Cycle live server telemetry stream every 3.2 seconds
+  useEffect(() => {
+    const logInterval = setInterval(() => {
+      setActiveLogIdx((prev) => (prev + 1) % LIVE_SERVER_LOGS.length);
+    }, 3200);
+    return () => clearInterval(logInterval);
+  }, []);
 
   // Lock body & html scroll when mobile menu drawer is open
   useEffect(() => {
@@ -158,14 +222,14 @@ export default function AdminObservabilityPage() {
         minHeight: "100vh",
         backgroundColor: "#090d16",
         color: "#f1f5f9",
-        overflowX: "hidden",
         display: "flex",
         flexDirection: "column",
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       }}
+      className="pt-[64px]"
     >
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-50 h-[64px] flex items-center justify-between px-4 sm:px-8 bg-[#090d16]/85 backdrop-blur-xl border-b border-white/10 w-full">
+      {/* Top Navbar: Sticky to the top across all screens */}
+      <header className="fixed top-0 left-0 right-0 z-50 h-[64px] flex items-center justify-between px-4 sm:px-8 bg-[#090d16]/90 backdrop-blur-xl border-b border-white/10 w-full">
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <StacklenzzLogo size={36} />
           <div>
@@ -330,69 +394,139 @@ export default function AdminObservabilityPage() {
           }}
         />
 
-        {/* Hero Top Pill Badge with Real-time Pulse Heartbeat */}
+        {/* Lenzzy Mascot Companion - Centered floating guide */}
         <motion.div
-          initial={{ opacity: 0, y: -16 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-indigo-500/35 backdrop-blur-md text-indigo-200 text-xs sm:text-sm font-semibold mb-6 relative z-10 shadow-[0_0_20px_-5px_rgba(99,102,241,0.25)] max-w-[92vw] sm:max-w-none text-center justify-center"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative z-20 mb-6 flex flex-col items-center justify-center pt-2"
         >
-          {/* Animated radar/sonar ping dot */}
-          <span style={{ position: "relative", display: "flex", width: "9px", height: "9px", flexShrink: 0 }}>
-            <span
-              style={{
-                position: "absolute",
-                display: "inline-flex",
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                backgroundColor: "#38bdf8",
-                opacity: 0.75,
-                animation: "livePulseRing 2s cubic-bezier(0, 0, 0.2, 1) infinite",
-              }}
-            />
-            <span
-              style={{
-                position: "relative",
-                display: "inline-flex",
-                borderRadius: "50%",
-                width: "9px",
-                height: "9px",
-                backgroundColor: "#38bdf8",
-              }}
-            />
-          </span>
-          <span className="truncate max-w-[260px] sm:max-w-none">Full-Stack Telemetry for Node.js Backends</span>
+          <LenzzyMascot />
         </motion.div>
 
-        {/* Headline */}
+        {/* Main Headline - Centered, Beautifully Balanced */}
         <motion.h1
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-          className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tight max-w-[920px] mx-auto mb-4 relative z-10"
+          transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
+          className="text-4xl sm:text-6xl md:text-7xl font-black leading-[1.12] tracking-tight text-center max-w-[960px] mx-auto mb-6 relative z-10"
         >
-          Effortless Observability,{" "}
-          <span
-            style={{
-              background: "linear-gradient(135deg, #818cf8 0%, #38bdf8 50%, #34d399 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Zero Boilerplate.
+          <span>Effortless Observability,</span>
+          <br />
+          <span className="relative inline-flex flex-col items-center mt-1 sm:mt-2">
+            <span className="telemetry-shimmer-text">
+              Zero Boilerplate.
+            </span>
+            {/* Dynamic Oscilloscope ECG Waveform centered under Zero Boilerplate */}
+            <svg
+              className="w-48 sm:w-64 h-3 sm:h-4 mt-1.5 overflow-visible"
+              viewBox="0 0 200 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 0 8 L 45 8 L 54 2 L 62 14 L 70 3 L 78 12 L 86 8 L 200 8"
+                stroke="rgba(255, 255, 255, 0.15)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M 0 8 L 45 8 L 54 2 L 62 14 L 70 3 L 78 12 L 86 8 L 200 8"
+                stroke="url(#hero-ecg-grad)"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeDasharray="200"
+                style={{
+                  animation: "ecgSweep 2.5s linear infinite",
+                }}
+              />
+              <defs>
+                <linearGradient id="hero-ecg-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#818cf8" stopOpacity="0.2" />
+                  <stop offset="45%" stopColor="#38bdf8" />
+                  <stop offset="65%" stopColor="#34d399" />
+                  <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
+                </linearGradient>
+              </defs>
+            </svg>
           </span>
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Subtitle - Centered with optimal line length */}
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
-          className="text-sm sm:text-lg md:text-xl text-slate-400 max-w-[740px] mx-auto mb-8 leading-relaxed relative z-10 px-2"
+          transition={{ duration: 0.55, delay: 0.22, ease: "easeOut" }}
+          className="text-sm sm:text-lg md:text-xl text-slate-400 max-w-[760px] mx-auto mb-6 text-center leading-relaxed relative z-10 px-4"
         >
-          A production-grade instrumentation toolkit providing Express and NestJS telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React & Next.js admin dashboards.
+          A production-grade instrumentation toolkit providing Express and NestJS telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React &amp; Next.js admin dashboards.
         </motion.p>
+
+        {/* Real-time Server Log Console Stream (Continuous Observability Simulation) */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+          className="w-full max-w-[680px] mx-auto mb-8 relative z-10"
+        >
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md shadow-[0_10px_30px_-10px_rgba(0,0,0,0.7)] text-left font-mono text-xs overflow-hidden">
+            {/* Stream header badge */}
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full w-2 h-2 bg-emerald-500" />
+              </span>
+              <span className="text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">
+                Telemetry Stream
+              </span>
+            </div>
+
+            {/* Cycling animated server log line */}
+            <div className="flex-1 min-w-0 w-full overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeLogIdx}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex items-center gap-2 truncate"
+                >
+                  <span
+                    className="text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0"
+                    style={{
+                      backgroundColor: `${LIVE_SERVER_LOGS[activeLogIdx].badgeColor}20`,
+                      color: LIVE_SERVER_LOGS[activeLogIdx].badgeColor,
+                      border: `1px solid ${LIVE_SERVER_LOGS[activeLogIdx].badgeColor}40`,
+                    }}
+                  >
+                    {LIVE_SERVER_LOGS[activeLogIdx].badge}
+                  </span>
+                  <span
+                    className="text-[11px] font-bold shrink-0"
+                    style={{ color: LIVE_SERVER_LOGS[activeLogIdx].statusColor }}
+                  >
+                    {LIVE_SERVER_LOGS[activeLogIdx].status}
+                  </span>
+                  <span className="text-slate-200 text-xs truncate">
+                    {LIVE_SERVER_LOGS[activeLogIdx].action}
+                  </span>
+                  <span className="text-slate-500 text-[10px] hidden md:inline shrink-0">
+                    ({LIVE_SERVER_LOGS[activeLogIdx].meta})
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Live FPS / Scrape Status */}
+            <div className="hidden sm:flex items-center gap-1.5 text-[10px] text-slate-500 shrink-0">
+              <Activity size={12} className="text-indigo-400" />
+              <span>Realtime</span>
+            </div>
+          </div>
+        </motion.div>
 
         {/* CTA Button Group */}
         <motion.div
@@ -420,114 +554,6 @@ export default function AdminObservabilityPage() {
               <Play size={15} className="text-sky-400" /> Launch Demo Console
             </Link>
           </motion.div>
-        </motion.div>
-
-        {/* Live Observability Telemetry Radar Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-          className="w-full max-w-[720px] mx-auto mb-8 relative z-10"
-        >
-          {/* Mobile view: Transparent 3-column minimal pill capsules */}
-          <div className="grid sm:hidden grid-cols-3 gap-2 w-full px-1">
-            {/* Metric 1 */}
-            <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-emerald-500/[0.07] border border-emerald-500/20 backdrop-blur-sm text-center">
-              <div className="flex items-center gap-1 mb-1">
-                <span className="relative flex w-1.5 h-1.5 shrink-0">
-                  <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-80 animate-ping" />
-                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-emerald-400" />
-                </span>
-                <span className="text-[9.5px] text-slate-400 uppercase font-bold tracking-wider">Heartbeat</span>
-              </div>
-              <div className="text-xs font-extrabold text-emerald-400 font-mono">
-                99.99%
-              </div>
-            </div>
-
-            {/* Metric 2 */}
-            <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-sky-500/[0.07] border border-sky-500/20 backdrop-blur-sm text-center">
-              <div className="flex items-center gap-1 mb-1">
-                <span className="relative flex w-1.5 h-1.5 shrink-0">
-                  <span className="absolute inline-flex w-full h-full rounded-full bg-sky-400 opacity-80 animate-ping" />
-                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-sky-400" />
-                </span>
-                <span className="text-[9.5px] text-slate-400 uppercase font-bold tracking-wider">Latency</span>
-              </div>
-              <div className="text-xs font-extrabold text-sky-400 font-mono">
-                14.2 ms
-              </div>
-            </div>
-
-            {/* Metric 3 */}
-            <div className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-purple-500/[0.07] border border-purple-500/20 backdrop-blur-sm text-center">
-              <div className="flex items-center gap-1 mb-1">
-                <span className="relative flex w-1.5 h-1.5 shrink-0">
-                  <span className="absolute inline-flex w-full h-full rounded-full bg-purple-400 opacity-80 animate-ping" />
-                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-purple-400" />
-                </span>
-                <span className="text-[9.5px] text-slate-400 uppercase font-bold tracking-wider">Throughput</span>
-              </div>
-              <div className="text-xs font-extrabold text-purple-400 font-mono">
-                1.4k req/s
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop view: Floating capsule pill bar */}
-          <div className="hidden sm:flex items-center justify-around gap-6 px-6 py-3 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-xl">
-            {/* Metric 1 */}
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex w-2.5 h-2.5 shrink-0">
-                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-80 animate-ping" />
-                <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-emerald-500" />
-              </span>
-              <div className="text-left">
-                <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                  Heartbeat
-                </div>
-                <div className="text-[13px] font-bold text-emerald-400 font-mono">
-                  Healthy • 99.99%
-                </div>
-              </div>
-            </div>
-
-            <div className="w-px h-5 bg-white/10" />
-
-            {/* Metric 2 */}
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex w-2.5 h-2.5 shrink-0">
-                <span className="absolute inline-flex w-full h-full rounded-full bg-sky-400 opacity-80 animate-ping" />
-                <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-sky-400" />
-              </span>
-              <div className="text-left">
-                <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                  Latency (p99)
-                </div>
-                <div className="text-[13px] font-bold text-sky-400 font-mono">
-                  14.2 ms
-                </div>
-              </div>
-            </div>
-
-            <div className="w-px h-5 bg-white/10" />
-
-            {/* Metric 3 */}
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex w-2.5 h-2.5 shrink-0">
-                <span className="absolute inline-flex w-full h-full rounded-full bg-purple-500 opacity-80 animate-ping" />
-                <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-purple-500" />
-              </span>
-              <div className="text-left">
-                <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                  Throughput
-                </div>
-                <div className="text-[13px] font-bold text-purple-400 font-mono">
-                  1,420 req/s
-                </div>
-              </div>
-            </div>
-          </div>
         </motion.div>
 
         {/* Quick Install Banner with interactive copy */}
@@ -952,6 +978,32 @@ export default function AdminObservabilityPage() {
           }
           50% {
             box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+          }
+        }
+        @keyframes telemetryShimmer {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        .telemetry-shimmer-text {
+          background: linear-gradient(135deg, #818cf8 0%, #38bdf8 35%, #34d399 70%, #818cf8 100%);
+          background-size: 300% 300%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: telemetryShimmer 4.5s ease infinite;
+        }
+        @keyframes ecgSweep {
+          0% {
+            stroke-dashoffset: 240;
+          }
+          100% {
+            stroke-dashoffset: 0;
           }
         }
         @media (max-width: 768px) {

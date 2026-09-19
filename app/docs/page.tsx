@@ -1074,23 +1074,23 @@ try {
 setupObservability(app, {
   serviceName: "payment-api",
   environment: "production",
-  // Configure pluggable crash log adaptor
+  // Configure pluggable crash log adaptor for database persistence & UI management
   crashLogAdaptor: {
+    // 1. Save 5xx server crash entry
     save: async (entry: CrashLogEntry) => {
-      // entry contains id, timestamp, message, stack, route, method, statusCode, breadcrumbs & context
-      await db.crashLogs.create({
-        data: {
-          id: entry.id,
-          timestamp: new Date(entry.timestamp),
-          message: entry.message,
-          stack: entry.stack,
-          route: entry.route,
-          method: entry.method,
-          statusCode: entry.statusCode,
-          breadcrumbs: entry.breadcrumbs,
-          context: entry.context,
-        },
-      });
+      await db.crashLogs.create({ data: entry });
+    },
+    // 2. Query persisted logs for the UI dashboard
+    list: async () => {
+      return await db.crashLogs.findMany({ orderBy: { timestamp: "desc" } });
+    },
+    // 3. Delete an individual crash log from the UI dashboard
+    delete: async (id: string) => {
+      await db.crashLogs.delete({ where: { id } });
+    },
+    // 4. Purge all crash logs from the UI dashboard ("Clear All Logs")
+    clearAll: async () => {
+      await db.crashLogs.deleteMany({});
     },
   },
 });`}

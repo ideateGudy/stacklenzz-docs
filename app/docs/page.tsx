@@ -29,6 +29,7 @@ import {
   ChevronRight,
   ArrowRight,
   CornerDownLeft,
+  Box,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { StacklenzzLogo } from "../components/StacklenzzLogo";
@@ -125,6 +126,7 @@ export default function DocumentationPage() {
       items: [
         { id: "express", label: "Express Instrumentation", icon: <Server size={16} /> },
         { id: "nestjs", label: "NestJS Module Setup", icon: <Cpu size={16} /> },
+        { id: "framework-compat", label: "Node.js Framework Compatibility", icon: <Box size={16} /> },
         { id: "sdk-advanced", label: "Advanced SDK Features & APIs", icon: <Zap size={16} /> },
         { id: "metrics-tracing", label: "Metrics & OpenTelemetry", icon: <Gauge size={16} /> },
         { id: "error-intel", label: "Error Intelligence & Breadcrumbs", icon: <AlertTriangle size={16} /> },
@@ -722,6 +724,111 @@ import { ObservabilityModule } from "@stacklenzz/server/nestjs";
   ],
 })
 export class AppModule {}`}
+              </pre>
+            </div>
+          {/* Section: Node.js Framework Compatibility */}
+          <section id="framework-compat" className="mb-14 min-w-0 max-w-full">
+            <h2 className="text-2xl font-bold m-0 mb-3">📦 Node.js Framework Compatibility</h2>
+            <p className="text-slate-400 m-0 mb-4 text-[14px]">
+              If your backend uses <strong>Fastify</strong>, <strong>Koa</strong>, <strong>Hono</strong>, <strong>Hapi</strong>, or pure Node.js <code>http</code>, you can use <code>@stacklenzz/server/core</code> to capture errors, record Prometheus metrics, and feed real-time telemetry to the dashboard:
+            </p>
+
+            {/* Fastify */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border mb-4">
+              <div className="text-xs font-bold text-sky-400 uppercase mb-2">
+                1. Fastify Integration
+              </div>
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
+{`import Fastify from "fastify";
+import { getObservabilitySnapshot, recordError } from "@stacklenzz/server/core";
+
+const fastify = Fastify();
+
+// Expose stats endpoint for dashboard UI
+fastify.get("/api/observability/stats", async (request, reply) => {
+  const snapshot = await getObservabilitySnapshot();
+  return reply.header("Access-Control-Allow-Origin", "*").send(snapshot);
+});
+
+// Capture unhandled errors into the dashboard error stream
+fastify.setErrorHandler((error, request, reply) => {
+  recordError({
+    message: error.message,
+    stack: error.stack,
+    route: request.url,
+    method: request.method,
+    statusCode: error.statusCode || 500,
+  });
+  reply.status(error.statusCode || 500).send({ error: error.message });
+});`}
+              </pre>
+            </div>
+
+            {/* Koa */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border mb-4">
+              <div className="text-xs font-bold text-indigo-400 uppercase mb-2">
+                2. Koa Integration
+              </div>
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
+{`import Koa from "koa";
+import Router from "@koa/router";
+import { getObservabilitySnapshot, recordError } from "@stacklenzz/server/core";
+
+const app = new Koa();
+const router = new Router();
+
+// Stats endpoint
+router.get("/api/observability/stats", async (ctx) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  ctx.body = await getObservabilitySnapshot();
+});
+
+// Global error tracking middleware
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err: any) {
+    recordError({
+      message: err.message,
+      stack: err.stack,
+      route: ctx.path,
+      method: ctx.method,
+      statusCode: err.status || 500,
+    });
+    throw err;
+  }
+});
+
+app.use(router.routes());`}
+              </pre>
+            </div>
+
+            {/* Hono */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <div className="text-xs font-bold text-emerald-400 uppercase mb-2">
+                3. Hono (Node.js)
+              </div>
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
+{`import { Hono } from "hono";
+import { getObservabilitySnapshot, recordError } from "@stacklenzz/server/core";
+
+const app = new Hono();
+
+app.get("/api/observability/stats", async (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  return c.json(await getObservabilitySnapshot());
+});
+
+app.onError((err, c) => {
+  recordError({
+    message: err.message,
+    stack: err.stack,
+    route: c.req.path,
+    method: c.req.method,
+    statusCode: 500,
+  });
+  return c.text("Internal Server Error", 500);
+});`}
               </pre>
             </div>
           </section>

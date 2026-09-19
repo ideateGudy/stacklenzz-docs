@@ -48,6 +48,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the documentation po
 
 ---
 
+## 🤝 Contributing
+
+We welcome contributions to improve the documentation! If you notice any typos, missing guides, or improvements needed, please feel free to contribute.
+
+- **Documentation Website Repo:** [https://github.com/ideateGudy/stacklenzz-docs](https://github.com/ideateGudy/stacklenzz-docs)
+- **Main Monorepo (Source Code):** [https://github.com/ideateGudy/stacklenzz](https://github.com/ideateGudy/stacklenzz)
+
+---
+
 ## 📄 License
 MIT © [Goodnews Azonubi](https://github.com/ideateGudy)
 

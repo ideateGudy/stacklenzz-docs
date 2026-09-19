@@ -21,52 +21,45 @@ export default function Image() {
           color: '#f1f5f9',
           fontFamily: 'sans-serif',
           position: 'relative',
-          padding: '48px 56px',
+          padding: '40px 60px',
           boxSizing: 'border-box',
-          justifyContent: 'space-between',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {/* Background ambient glow effects */}
         <div
           style={{
             position: 'absolute',
-            top: '-80px',
+            top: '40px',
             left: '300px',
             width: '600px',
             height: '350px',
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.28) 0%, rgba(56, 189, 248, 0.12) 50%, transparent 75%)',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(56, 189, 248, 0.1) 50%, transparent 75%)',
             borderRadius: '50%',
             filter: 'blur(50px)',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-60px',
-            right: '50px',
-            width: '450px',
-            height: '250px',
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(50px)',
+            display: 'flex',
           }}
         />
 
-        {/* Top Header Bar */}
+        {/* Top Navbar / Brand header */}
         <div
           style={{
+            position: 'absolute',
+            top: '36px',
+            left: '56px',
+            right: '56px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            width: '100%',
-            position: 'relative',
+            width: '1088px',
           }}
         >
           {/* Logo & Brand Name */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <svg
-              width="44"
-              height="44"
+              width="36"
+              height="36"
               viewBox="0 0 40 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -91,18 +84,6 @@ export default function Image() {
                 strokeDasharray="4 2"
               />
               <path
-                d="M 12 28 L 20 31.5 L 28 28"
-                stroke="#475569"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 12 24 L 20 27.5 L 28 24"
-                stroke="#64748b"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-              <path
                 d="M 10 20 L 15 20 L 17.5 14 L 21 25 L 23.5 17 L 25.5 20 L 30 20"
                 stroke="#ffffff"
                 strokeWidth="2"
@@ -111,28 +92,13 @@ export default function Image() {
               />
               <circle cx="20" cy="20" r="2.5" fill="#38bdf8" />
             </svg>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div
-                style={{
-                  fontSize: '26px',
-                  fontWeight: 900,
-                  letterSpacing: '-0.03em',
-                  color: '#ffffff',
-                }}
-              >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '22px', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.03em' }}>
                 Stacklenzz
-              </div>
-              <div
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  color: '#818cf8',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Node.js & React Telemetry
-              </div>
+              </span>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#818cf8', letterSpacing: '0.05em', textTransform: 'uppercase', padding: '3px 8px', backgroundColor: 'rgba(99, 102, 241, 0.15)', borderRadius: '6px', border: '1px solid rgba(99, 102, 241, 0.3)', display: 'flex' }}>
+                DOCS
+              </span>
             </div>
           </div>
 
@@ -141,8 +107,8 @@ export default function Image() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
-              padding: '8px 18px',
+              gap: '8px',
+              padding: '6px 14px',
               borderRadius: '9999px',
               backgroundColor: 'rgba(16, 185, 129, 0.1)',
               border: '1px solid rgba(16, 185, 129, 0.3)',
@@ -150,19 +116,18 @@ export default function Image() {
           >
             <div
               style={{
-                width: '10px',
-                height: '10px',
+                width: '8px',
+                height: '8px',
                 borderRadius: '50%',
                 backgroundColor: '#10b981',
-                boxShadow: '0 0 12px #10b981',
               }}
             />
             <span
               style={{
-                fontSize: '13px',
+                fontSize: '12px',
                 fontWeight: 700,
                 color: '#34d399',
-                letterSpacing: '0.02em',
+                letterSpacing: '0.04em',
               }}
             >
               LIVE TELEMETRY ACTIVE
@@ -170,23 +135,22 @@ export default function Image() {
           </div>
         </div>
 
-        {/* Center Hero Content */}
+        {/* Center Mascot & Main Hero Container */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start',
-            maxWidth: '1040px',
-            position: 'relative',
-            marginTop: '10px',
+            alignItems: 'center',
+            textAlign: 'center',
+            marginTop: '50px',
           }}
         >
-          {/* Hero Pill */}
+          {/* Lenzzy Mascot Badge */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '10px',
               padding: '6px 16px',
               borderRadius: '9999px',
               backgroundColor: 'rgba(30, 41, 59, 0.8)',
@@ -194,22 +158,16 @@ export default function Image() {
               marginBottom: '20px',
             }}
           >
-            <div
-              style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: '#38bdf8',
-              }}
-            />
-            <span
-              style={{
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#c7d2fe',
-              }}
-            >
-              Full-Stack Telemetry for Node.js Backends
+            {/* Robot Mascot Icon */}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="10" rx="2" />
+              <circle cx="12" cy="5" r="2" />
+              <path d="M12 7v4" />
+              <line x1="8" y1="15" x2="8" y2="15.01" />
+              <line x1="16" y1="15" x2="16" y2="15.01" />
+            </svg>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: '#c7d2fe' }}>
+              Meet Lenzzy • Your AI Telemetry Companion
             </span>
           </div>
 
@@ -218,141 +176,79 @@ export default function Image() {
             style={{
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
               fontSize: '56px',
               fontWeight: 900,
-              lineHeight: 1.12,
+              lineHeight: 1.1,
               letterSpacing: '-0.035em',
               marginBottom: '16px',
             }}
           >
             <span style={{ color: '#ffffff' }}>Effortless Observability,</span>
-            <span
-              style={{
-                backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #38bdf8 50%, #34d399 100%)',
-                backgroundClip: 'text',
-                color: 'transparent',
-              }}
-            >
-              Zero Boilerplate.
-            </span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '4px' }}>
+              <span
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #38bdf8 50%, #34d399 100%)',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                Zero Boilerplate.
+              </span>
+
+              {/* ECG Waveform SVG */}
+              <svg
+                width="240"
+                height="16"
+                viewBox="0 0 200 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ marginTop: '8px' }}
+              >
+                <path
+                  d="M 0 8 L 45 8 L 54 2 L 62 14 L 70 3 L 78 12 L 86 8 L 200 8"
+                  stroke="#38bdf8"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </div>
 
-          {/* Description */}
+          {/* Subtitle */}
           <div
             style={{
-              fontSize: '20px',
-              lineHeight: 1.45,
+              fontSize: '18px',
+              lineHeight: 1.5,
               color: '#94a3b8',
-              maxWidth: '860px',
+              maxWidth: '820px',
+              textAlign: 'center',
+              marginBottom: '28px',
             }}
           >
-            Production-grade instrumentation for Express and NestJS backends with Prometheus metrics, structured Winston JSON logs, and mountable React & Next.js admin dashboards.
+            A production-grade instrumentation toolkit providing Express and NestJS telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React &amp; Next.js admin dashboards.
           </div>
-        </div>
 
-        {/* Bottom Hero Metrics Bar & CLI snippet */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          {/* 3 Metric Pills */}
+          {/* Console / Quick CLI Action pill */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '24px',
+              gap: '12px',
               padding: '12px 24px',
-              borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-            }}
-          >
-            {/* Metric 1 */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: '#10b981',
-                }}
-              />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase' }}>
-                  Heartbeat
-                </span>
-                <span style={{ fontSize: '14px', color: '#34d399', fontWeight: 800, fontFamily: 'monospace' }}>
-                  99.99% UP
-                </span>
-              </div>
-            </div>
-
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
-
-            {/* Metric 2 */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: '#38bdf8',
-                }}
-              />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase' }}>
-                  Latency
-                </span>
-                <span style={{ fontSize: '14px', color: '#38bdf8', fontWeight: 800, fontFamily: 'monospace' }}>
-                  14.2 ms p99
-                </span>
-              </div>
-            </div>
-
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
-
-            {/* Metric 3 */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: '#a855f7',
-                }}
-              />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase' }}>
-                  Throughput
-                </span>
-                <span style={{ fontSize: '14px', color: '#c084fc', fontWeight: 800, fontFamily: 'monospace' }}>
-                  1.4k req/s
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick CLI Command */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '12px 20px',
               backgroundColor: '#030712',
-              borderRadius: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
+              borderRadius: '14px',
+              border: '1px solid rgba(99, 102, 241, 0.3)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6)',
             }}
           >
-            <span style={{ color: '#818cf8', fontWeight: 800, fontFamily: 'monospace', fontSize: '15px' }}>$</span>
-            <span style={{ color: '#e2e8f0', fontFamily: 'monospace', fontSize: '14px', fontWeight: 600 }}>
+            <span style={{ color: '#818cf8', fontWeight: 800, fontFamily: 'monospace', fontSize: '16px' }}>$</span>
+            <span style={{ color: '#f8fafc', fontFamily: 'monospace', fontSize: '15px', fontWeight: 600 }}>
               npx stacklenzz dashboard -y
+            </span>
+            <span style={{ marginLeft: '12px', fontSize: '12px', fontWeight: 700, color: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.12)', padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(52, 211, 153, 0.25)', display: 'flex' }}>
+              Quick Setup
             </span>
           </div>
         </div>
@@ -363,3 +259,4 @@ export default function Image() {
     }
   );
 }
+

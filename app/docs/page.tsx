@@ -157,6 +157,12 @@ export default function DocumentationPage() {
         { id: "deployment", label: "Hosting Live on Vercel / Cloud", icon: <ExternalLink size={16} /> },
       ],
     },
+    {
+      group: "Community",
+      items: [
+        { id: "contributing", label: "Contributing", icon: <GitBranch size={16} /> },
+      ],
+    },
   ];
 
   const handleNavClick = (id: string) => {
@@ -1141,6 +1147,30 @@ export function middleware(req: NextRequest) {
                   Ensure CORS headers permit requests from your admin dashboard origin in <code>setupObservability</code> or NestJS <code>app.enableCors()</code>.
                 </p>
               </div>
+            </div>
+          </section>
+
+          {/* Section: Contributing */}
+          <section id="contributing" className="mb-14 min-w-0 max-w-full">
+            <h2 className="text-2xl font-bold m-0 mb-3">🤝 Contributing</h2>
+            <p className="text-slate-400 m-0 mb-4 text-[14px]">
+              We welcome contributions to improve the documentation and the Stacklenzz ecosystem!
+            </p>
+            <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl flex flex-col min-w-0 max-w-full overflow-hidden box-border">
+              <ul className="text-slate-300 text-sm flex flex-col gap-3 m-0 pl-4">
+                <li>
+                  <strong>Documentation Website Repo:</strong>{" "}
+                  <a href="https://github.com/ideateGudy/stacklenzz-docs" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:underline">
+                    https://github.com/ideateGudy/stacklenzz-docs
+                  </a>
+                </li>
+                <li>
+                  <strong>Main Monorepo (Source Code):</strong>{" "}
+                  <a href="https://github.com/ideateGudy/stacklenzz" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:underline">
+                    https://github.com/ideateGudy/stacklenzz
+                  </a>
+                </li>
+              </ul>
             </div>
           </section>
         </main>

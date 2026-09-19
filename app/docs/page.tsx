@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Activity,
@@ -45,6 +45,7 @@ export default function DocumentationPage() {
   const [activeSection, setActiveSection] = useState<string>("quickstart");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [installPm, setInstallPm] = useState<"cli" | "npm" | "pnpm" | "bun" | "yarn">("cli");
+  const [isNavVisible, setIsNavVisible] = useState<boolean>(true);
 
   // Keyboard shortcut listener for Ctrl+K / Cmd+K and Esc
   useEffect(() => {
@@ -60,16 +61,31 @@ export default function DocumentationPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isSearchOpen]);
 
-  // Auto-highlight sidebar section as user scrolls through docs-main-scroll-container
+  // Auto-highlight sidebar section as user scrolls & reveal/hide nav based on scroll direction
   useEffect(() => {
     const container = document.getElementById("docs-main-scroll-container");
     if (!container) return;
 
     const allSectionIds = navItems.flatMap((g) => g.items.map((item) => item.id));
+    let lastScrollTop = container.scrollTop;
 
     const handleScroll = () => {
       const containerTop = container.scrollTop;
       const containerHeight = container.clientHeight;
+
+      // Scroll direction detection for navbar
+      const scrollDiff = containerTop - lastScrollTop;
+      if (containerTop <= 40) {
+        // At or near top of the page -> always show navbar
+        setIsNavVisible(true);
+      } else if (scrollDiff > 8) {
+        // Scrolling down -> hide navbar
+        setIsNavVisible(false);
+      } else if (scrollDiff < -8) {
+        // Scrolling up -> show navbar
+        setIsNavVisible(true);
+      }
+      lastScrollTop = containerTop;
 
       // If scrolled near bottom of container, highlight the last section
       if (container.scrollHeight - (containerTop + containerHeight) < 80) {
@@ -144,6 +160,7 @@ export default function DocumentationPage() {
   const handleNavClick = (id: string) => {
     setActiveSection(id);
     setMobileMenuOpen(false);
+    setIsNavVisible(true);
     const target = document.getElementById(id);
     const container = document.getElementById("docs-main-scroll-container");
     if (target && container) {
@@ -156,8 +173,14 @@ export default function DocumentationPage() {
 
   return (
     <div className="flex flex-col h-screen max-h-screen w-screen max-w-[100vw] overflow-hidden bg-background text-slate-100">
-      {/* Top Navbar: Fixed / Static */}
-      <header className="relative z-50 shrink-0 h-[60px] flex items-center justify-between px-5 bg-[#090d16]/95 backdrop-blur-md border-b border-white/10 w-full">
+      {/* Top Navbar: Auto-hides on scroll down, reappears on scroll up */}
+      <header
+        className={`relative z-50 shrink-0 h-[60px] flex items-center justify-between px-5 bg-[#090d16]/95 backdrop-blur-md border-b border-white/10 w-full transition-all duration-300 ease-in-out ${
+          isNavVisible
+            ? "translate-y-0 opacity-100 mt-0"
+            : "-translate-y-full opacity-0 -mt-[60px] pointer-events-none"
+        }`}
+      >
         <div className="flex items-center gap-3">
           {/* Desktop Sidebar Expand/Collapse Toggle */}
           <button
@@ -171,7 +194,10 @@ export default function DocumentationPage() {
 
           {/* Mobile menu hamburger toggle */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              setIsNavVisible(true);
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
             className="flex lg:hidden items-center justify-center bg-white/5 border border-white/10 rounded-md p-1.5 text-white cursor-pointer"
             aria-label="Toggle navigation"
           >
@@ -265,7 +291,7 @@ export default function DocumentationPage() {
       </header>
 
       {/* Main Documentation Layout: Takes remaining viewport height with independent Main Scroll */}
-      <div className="flex w-full max-w-[1600px] mx-auto flex-1 h-[calc(100vh-60px)] max-h-[calc(100vh-60px)] overflow-hidden relative">
+      <div className="flex w-full max-w-[1600px] mx-auto flex-1 min-h-0 overflow-hidden relative">
         {/* Mobile Backdrop Overlay when Drawer is open */}
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -274,7 +300,9 @@ export default function DocumentationPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-x-0 bottom-0 top-[60px] bg-black/75 backdrop-blur-sm z-[39]"
+              className={`fixed inset-x-0 bottom-0 ${
+                isNavVisible ? "top-[60px]" : "top-0"
+              } bg-black/75 backdrop-blur-sm z-[39] transition-all duration-300`}
             />
           )}
         </AnimatePresence>
@@ -284,7 +312,11 @@ export default function DocumentationPage() {
           style={{ width: sidebarCollapsed ? "68px" : "260px" }}
           className={`shrink-0 h-full overflow-y-auto overflow-x-hidden border-r border-white/5 transition-all duration-300 ease-in-out ${
             sidebarCollapsed ? "p-5 px-2" : "p-6 px-4"
-          } max-lg:fixed max-lg:top-[60px] max-lg:left-0 max-lg:z-40 max-lg:bg-[#090d16]/95 max-lg:backdrop-blur-xl max-lg:h-[calc(100vh-60px)] max-lg:shadow-2xl ${
+          } max-lg:fixed ${
+            isNavVisible
+              ? "max-lg:top-[60px] max-lg:h-[calc(100vh-60px)]"
+              : "max-lg:top-0 max-lg:h-screen"
+          } max-lg:left-0 max-lg:z-40 max-lg:bg-[#090d16]/95 max-lg:backdrop-blur-xl max-lg:shadow-2xl ${
             mobileMenuOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"
           }`}
         >
@@ -726,6 +758,8 @@ import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 export class AppModule {}`}
               </pre>
             </div>
+          </section>
+
           {/* Section: Node.js Framework Compatibility */}
           <section id="framework-compat" className="mb-14 min-w-0 max-w-full">
             <h2 className="text-2xl font-bold m-0 mb-3">📦 Node.js Framework Compatibility</h2>

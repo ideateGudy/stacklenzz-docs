@@ -30,6 +30,7 @@ import {
   ArrowRight,
   CornerDownLeft,
   Box,
+  Database,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { StacklenzzLogo } from "../components/StacklenzzLogo";
@@ -146,6 +147,7 @@ export default function DocumentationPage() {
         { id: "sdk-advanced", label: "Advanced SDK Features & APIs", icon: <Zap size={16} /> },
         { id: "metrics-tracing", label: "Metrics & OpenTelemetry", icon: <Gauge size={16} /> },
         { id: "error-intel", label: "Error Intelligence & Breadcrumbs", icon: <AlertTriangle size={16} /> },
+        { id: "crash-log-adaptor", label: "Database Crash Log Adaptor", icon: <Database size={16} /> },
       ],
     },
     {
@@ -1016,6 +1018,76 @@ try {
   // Breadcrumbs recorded above are automatically attached to this error card!
   logger.error(err);
 }`}
+              </pre>
+            </div>
+          </section>
+
+          {/* Section: Pluggable Database Crash Log Adaptor */}
+          <section id="crash-log-adaptor" className="mb-14 min-w-0 max-w-full">
+            <h2 className="text-2xl font-bold m-0 mb-3">💾 Pluggable Database Crash Log Adaptor</h2>
+            <p className="text-slate-400 m-0 mb-4 text-[14px]">
+              Persist <strong>5xx server crashes</strong> directly to your own database (PostgreSQL, MongoDB, Redis, Prisma, TypeORM, DynamoDB, etc.) without sending operational logs to third-party SaaS vendors:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-5 min-w-0 max-w-full">
+              <div className="p-4 bg-slate-900/60 border border-white/10 rounded-xl">
+                <div className="text-xs font-bold text-emerald-400 uppercase mb-1">
+                  1. Opt-in Only
+                </div>
+                <p className="text-xs text-slate-300 m-0 leading-relaxed">
+                  Zero setup or database overhead if omitted. In-memory ring buffers keep working out-of-the-box.
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-900/60 border border-white/10 rounded-xl">
+                <div className="text-xs font-bold text-sky-400 uppercase mb-1">
+                  2. 5xx Crashes Only
+                </div>
+                <p className="text-xs text-slate-300 m-0 leading-relaxed">
+                  Triggers only for 5xx HTTP errors and uncaught server exceptions. Excludes 4xx client errors and info logs.
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-900/60 border border-white/10 rounded-xl">
+                <div className="text-xs font-bold text-indigo-400 uppercase mb-1">
+                  3. Non-Blocking Fire-and-Forget
+                </div>
+                <p className="text-xs text-slate-300 m-0 leading-relaxed">
+                  Dispatched asynchronously. A failing database write or network rejection will never crash your API app.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-950 border border-white/10 min-w-0 max-w-full overflow-hidden box-border">
+              <div className="text-xs font-bold text-sky-400 uppercase mb-2">
+                Express / NestJS / Core Adaptor Integration Example
+              </div>
+              <pre className="m-0 text-slate-50 font-mono text-[13px] leading-relaxed max-w-full overflow-x-auto whitespace-pre-wrap break-words box-border">
+{`import { setupObservability, CrashLogEntry } from "@stacklenzz/server";
+
+setupObservability(app, {
+  serviceName: "payment-api",
+  environment: "production",
+  // Configure pluggable crash log adaptor
+  crashLogAdaptor: {
+    save: async (entry: CrashLogEntry) => {
+      // entry contains id, timestamp, message, stack, route, method, statusCode, breadcrumbs & context
+      await db.crashLogs.create({
+        data: {
+          id: entry.id,
+          timestamp: new Date(entry.timestamp),
+          message: entry.message,
+          stack: entry.stack,
+          route: entry.route,
+          method: entry.method,
+          statusCode: entry.statusCode,
+          breadcrumbs: entry.breadcrumbs,
+          context: entry.context,
+        },
+      });
+    },
+  },
+});`}
               </pre>
             </div>
           </section>

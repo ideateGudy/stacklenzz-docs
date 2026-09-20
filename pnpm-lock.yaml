@@ -114,11 +114,11 @@ importers:
   .:
     dependencies:
       '@stacklenzz/server':
-        specifier: ^0.1.5
-        version: 0.1.5(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(supports-color@7.2.0)
+        specifier: ^0.2.0
+        version: 0.2.0(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(supports-color@7.2.0)
       '@stacklenzz/ui':
-        specifier: ^0.1.4
-        version: 0.1.4(@types/react@19.3.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(redux@5.0.1)
+        specifier: ^0.2.1
+        version: 0.2.1(@types/react@19.3.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(redux@5.0.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1122,8 +1122,8 @@ packages:
   '@so-ric/colorspace@1.1.6':
     resolution: {integrity: sha512-/KiKkpHNOBgkFJwu9sh48LkHSMYGyuTcSFK/qMBdnOAlrRJzRSXAOFB5qwzaVQuDl8wAvHVMkaASQDReTahxuw==}
 
-  '@stacklenzz/server@0.1.5':
-    resolution: {integrity: sha512-qM232GDg7aEd+OrA76NCFzkT+kJU1uA+fzgAq+pMv3u6gXZze8Dg9MRm7TfVAes4Iujw15zqyS20XkC1OmL6YA==}
+  '@stacklenzz/server@0.2.0':
+    resolution: {integrity: sha512-R2DF5Oboic9NMCQhvW8MJOIy8yLwww9CVnU2k74YrJwMZtOVqYy7hDCDqKsgFKTuXz9OF/QqBxa9SUwNxHBxSA==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@nestjs/common': '>=9.0.0'
@@ -1143,8 +1143,8 @@ packages:
       rxjs:
         optional: true
 
-  '@stacklenzz/ui@0.1.4':
-    resolution: {integrity: sha512-wWULN32G3OW3Dn7ev8uXU3Lvi+BzZRerDq1ice45j6DsbnsnWOzue3xAbc6h34ETNYersq0IqQJguSeY1xxhVg==}
+  '@stacklenzz/ui@0.2.1':
+    resolution: {integrity: sha512-57zjsD5LQtc2P6O7e+US3McpPRyNQ0a8q3apDKHOn3LCcrMfS6+nPq7Uc+ycCgQicOTxseLYYPjkom3wevcP9Q==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: '>=18.0.0 || ^19.0.0'
@@ -4169,7 +4169,7 @@ snapshots:
       color: 5.0.3
       text-hex: 1.0.0
 
-  '@stacklenzz/server@0.1.5(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(supports-color@7.2.0)':
+  '@stacklenzz/server@0.2.0(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(supports-color@7.2.0)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/auto-instrumentations-node': 0.80.0(@opentelemetry/api@1.9.1)(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(supports-color@7.2.0)
@@ -4183,7 +4183,7 @@ snapshots:
       - '@opentelemetry/core'
       - supports-color
 
-  '@stacklenzz/ui@0.1.4(@types/react@19.3.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(redux@5.0.1)':
+  '@stacklenzz/ui@0.2.1(@types/react@19.3.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(redux@5.0.1)':
     dependencies:
       '@reduxjs/toolkit': 2.12.0(react-redux@9.3.0(@types/react@19.3.0)(react@19.2.8)(redux@5.0.1))(react@19.2.8)
       lucide-react: 1.46.0(react@19.2.8)

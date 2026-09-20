@@ -602,6 +602,24 @@ export default function AdminObservabilityPage() {
               ))}
             </div>
 
+            {/* Dynamic Health Evaluation Explanation */}
+            <div className="p-5 sm:p-6 bg-slate-900/60 border border-white/10 rounded-2xl mt-4 min-w-0 max-w-full overflow-hidden box-border">
+              <div className="text-xs font-bold text-emerald-400 uppercase mb-2">
+                🏥 Dynamic SLA Health Evaluation Logic
+              </div>
+              <p className="text-xs sm:text-[13px] text-slate-300 m-0 leading-relaxed mb-3">
+                The service header dynamically calculates composite system health (<code>HEALTHY</code> / <code>DEGRADED</code> / <code>CRITICAL</code>) in real-time, respecting your active <strong>Error Rate time window filter</strong> (e.g. <em>Last 1 min</em>, <em>Last 5 min</em>, <em>Last 1 hour</em>, or <em>All-time</em>):
+              </p>
+              <ul className="m-0 pl-5 text-slate-300 text-xs flex flex-col gap-1.5 leading-relaxed">
+                <li><strong className="text-red-400">CRITICAL</strong>: Triggered if active Error Rate &ge; 5.0%, P95 Latency &ge; 2,000ms, CPU Load &ge; 90%, Event Loop Lag &ge; 100ms, or Heap &ge; 95%.</li>
+                <li><strong className="text-amber-400">DEGRADED</strong>: Triggered if active Error Rate &ge; 1.0%, P95 Latency &ge; 800ms, CPU Load &ge; 75%, Event Loop Lag &ge; 30ms, or Heap &ge; 85%.</li>
+                <li><strong className="text-emerald-400">HEALTHY</strong>: All metrics operating within normal baseline boundaries.</li>
+              </ul>
+              <p className="text-[11px] text-slate-400 m-0 mt-3 pt-2 border-t border-white/10 italic">
+                * Note: Persisted database crash logs (<code>dbCrashLogs</code>) are excluded from health status evaluation to ensure historical crash entries from previous server instances do not falsely mark a clean server instance as degraded.
+              </p>
+            </div>
+
             <div className="p-5 sm:p-6 bg-slate-950 border border-white/10 rounded-2xl min-w-0 max-w-full overflow-hidden box-border">
               <div className="text-[12.5px] font-bold text-indigo-400 uppercase mb-1.5">
                 ⚡️ Automatic LocalStorage Persistence

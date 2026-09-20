@@ -3,7 +3,7 @@ allowBuilds:
   sharp: false
   unrs-resolver: false
 minimumReleaseAgeExclude:
-  - '@stacklenzz/ui@0.1.0 || 0.1.3 || 0.1.4 || 0.2.1 || 0.2.2'
+  - '@stacklenzz/ui@0.1.0 || 0.1.3 || 0.1.4 || 0.2.1 || 0.2.2 || 0.2.3'
   - '@stacklenzz/server@0.1.0 || 0.1.1 || 0.1.2 || 0.1.3 || 0.1.5 || 0.2.0 || 0.2.1'
 onlyBuiltDependencies:
   - protobufjs

@@ -951,7 +951,7 @@ export default function AdminObservabilityPage() {
             </motion.div>
           </div>
           <div className="mt-10 text-xs text-slate-500">
-            Stacklenzz • MIT Licensed • Built with Node.js & React
+            Stacklenzz • Apache 2.0 Licensed • Built with Node.js & React
           </div>
         </motion.div>
       </section>

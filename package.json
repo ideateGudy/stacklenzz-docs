@@ -10,8 +10,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@stacklenzz/server": "^0.2.1",
-    "@stacklenzz/ui": "^0.2.3",
+    "@stacklenzz/server": "^1.0.0",
+    "@stacklenzz/ui": "^1.0.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.46.0",
     "motion": "^13.4.0",

@@ -611,12 +611,21 @@ export default function AdminObservabilityPage() {
                 The service header dynamically calculates composite system health (<code>HEALTHY</code> / <code>DEGRADED</code> / <code>CRITICAL</code>) in real-time, respecting your active <strong>Error Rate time window filter</strong> (e.g. <em>Last 1 min</em>, <em>Last 5 min</em>, <em>Last 1 hour</em>, or <em>All-time</em>):
               </p>
               <ul className="m-0 pl-5 text-slate-300 text-xs flex flex-col gap-1.5 leading-relaxed">
-                <li><strong className="text-red-400">CRITICAL</strong>: Triggered if active Error Rate &ge; 5.0%, P95 Latency &ge; 2,000ms, CPU Load &ge; 90%, Event Loop Lag &ge; 100ms, or Heap &ge; 95%.</li>
-                <li><strong className="text-amber-400">DEGRADED</strong>: Triggered if active Error Rate &ge; 1.0%, P95 Latency &ge; 800ms, CPU Load &ge; 75%, Event Loop Lag &ge; 30ms, or Heap &ge; 85%.</li>
+                <li><strong className="text-red-400">CRITICAL</strong>: Triggered if active 5xx Error Rate &ge; 5.0%, P95 Latency &ge; 2,000ms, CPU Load &ge; 90%, Event Loop Lag &ge; 100ms, or Heap &ge; 95% (when Heap &gt; 128MB).</li>
+                <li><strong className="text-amber-400">DEGRADED</strong>: Triggered if active 5xx Error Rate &ge; 1.0%, P95 Latency &ge; 800ms, CPU Load &ge; 75%, Event Loop Lag &ge; 30ms, or Heap &ge; 85% (when Heap &gt; 128MB).</li>
                 <li><strong className="text-emerald-400">HEALTHY</strong>: All metrics operating within normal baseline boundaries.</li>
               </ul>
+              <div className="mt-3 p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-[12px] text-indigo-200">
+                <strong>⚡️ 5xx Server Error Rate Formula:</strong><br />
+                <code className="text-indigo-300 font-mono text-[11px] block mt-1">
+                  Error Rate % = (Total HTTP 500+ Responses / Total HTTP Responses) &times; 100
+                </code>
+                <span className="text-[11px] text-slate-400 block mt-1">
+                  HTTP 4xx client errors (such as 404 Not Found or 401 Unauthorized) are tracked in HTTP breakdown charts but excluded from health degradation formulas so client mistakes do not impact server SLA scores.
+                </span>
+              </div>
               <p className="text-[11px] text-slate-400 m-0 mt-3 pt-2 border-t border-white/10 italic">
-                * Note: Persisted database crash logs (<code>dbCrashLogs</code>) are excluded from health status evaluation to ensure historical crash entries from previous server instances do not falsely mark a clean server instance as degraded.
+                * Note: Persisted PostgreSQL / MongoDB database crash logs (<code>dbCrashLogs</code>) are excluded from active health evaluation so historical entries from prior instances do not falsely mark a clean server instance as degraded.
               </p>
             </div>
 

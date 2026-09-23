@@ -150,7 +150,7 @@ app.listen(5000);`}
           Stacklenzz is compatible across popular Node.js frameworks:
         </p>
 
-        <div className="bg-[#111827] border border-[#1e293b] rounded-xl overflow-hidden">
+        <div className="bg-[#111827] border border-[#1e293b] rounded-xl overflow-hidden overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-300 border-collapse">
             <thead className="bg-[#0f172a] text-slate-400 font-semibold border-b border-[#1e293b]">
               <tr>
@@ -298,7 +298,7 @@ export async function findUser(id: string) {
         <h3 id="w3c-propagation" className="text-lg font-semibold text-indigo-300 mt-4">
           W3C Traceparent Header Format
         </h3>
-        <pre className="p-3 bg-slate-950 text-indigo-[#818cf8] font-mono text-xs rounded-xl border border-[#1e293b]">
+        <pre className="p-3 bg-slate-950 text-indigo-[#818cf8] font-mono text-xs rounded-xl border border-[#1e293b] overflow-x-auto whitespace-pre-wrap break-words">
           traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
         </pre>
 

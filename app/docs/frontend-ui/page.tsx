@@ -56,7 +56,7 @@ export default function AdminObservabilityPage() {
         <h3 id="dashboard-prop-options" className="text-lg font-semibold text-indigo-300 mt-4">
           Available Dashboard Component Props
         </h3>
-        <div className="bg-[#111827] border border-[#1e293b] rounded-xl overflow-hidden">
+        <div className="bg-[#111827] border border-[#1e293b] rounded-xl overflow-hidden overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-300 border-collapse">
             <thead className="bg-[#0f172a] text-slate-400 font-semibold border-b border-[#1e293b]">
               <tr>
@@ -147,7 +147,7 @@ export default function AdminObservabilityPage() {
         <h3 id="error-rate-formula" className="text-lg font-semibold text-indigo-300 mt-4">
           5xx Server Error Rate Formula & Depleted SLO Bar
         </h3>
-        <pre className="p-3.5 bg-slate-950 rounded-xl text-indigo-300 font-mono text-xs border border-[#1e293b]">
+        <pre className="p-3.5 bg-slate-950 rounded-xl text-indigo-300 font-mono text-xs border border-[#1e293b] overflow-x-auto whitespace-pre-wrap break-words">
           Error Rate % = (Total HTTP 500+ Responses / Total HTTP Responses) &times; 100
         </pre>
         <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">

@@ -142,7 +142,7 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOO
           Trigger a test 5xx server crash endpoint using <code>curl</code>:
         </p>
 
-        <pre className="p-3 bg-slate-950 text-indigo-[#818cf8] font-mono text-xs rounded-xl border border-[#1e293b]">
+        <pre className="p-3 bg-slate-950 text-indigo-[#818cf8] font-mono text-xs rounded-xl border border-[#1e293b] overflow-x-auto whitespace-pre-wrap break-words">
           curl http://localhost:4000/api/error
         </pre>
 

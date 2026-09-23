@@ -120,7 +120,7 @@ export default function GettingStartedPage() {
                 {copiedCode === "code-step1" ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />} Copy
               </button>
             </div>
-            <pre className="m-0 p-3.5 bg-slate-950 rounded-xl text-slate-100 font-mono text-xs sm:text-sm border border-[#1e293b]">
+            <pre className="m-0 p-3.5 bg-slate-950 rounded-xl text-slate-100 font-mono text-xs sm:text-sm border border-[#1e293b] overflow-x-auto whitespace-pre-wrap break-words">
               npm install @stacklenzz/server
             </pre>
           </div>
@@ -139,7 +139,7 @@ export default function GettingStartedPage() {
                 {copiedCode === "code-step2" ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />} Copy
               </button>
             </div>
-            <pre className="m-0 p-3.5 bg-slate-950 rounded-xl text-slate-100 font-mono text-xs sm:text-sm border border-[#1e293b]">
+            <pre className="m-0 p-3.5 bg-slate-950 rounded-xl text-slate-100 font-mono text-xs sm:text-sm border border-[#1e293b] overflow-x-auto whitespace-pre-wrap break-words">
               npx stacklenzz dashboard
             </pre>
           </div>
@@ -216,7 +216,7 @@ export default function GettingStartedPage() {
             </button>
           </div>
 
-          <pre className="m-0 p-4 bg-slate-950 rounded-xl text-slate-50 font-mono text-xs sm:text-sm border border-[#1e293b]">
+          <pre className="m-0 p-4 bg-slate-950 rounded-xl text-slate-50 font-mono text-xs sm:text-sm border border-[#1e293b] overflow-x-auto whitespace-pre-wrap break-words">
             {installPm === "cli" && `# 1. Scaffold Dashboard Route\nnpx stacklenzz dashboard\n\n# 2. Run Doctor to Validate Connection\nnpx stacklenzz doctor`}
             {installPm === "npm" && `npm install @stacklenzz/server @stacklenzz/ui lucide-react`}
             {installPm === "pnpm" && `pnpm add @stacklenzz/server @stacklenzz/ui lucide-react`}

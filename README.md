@@ -43,7 +43,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the documentation po
 ## 📦 Monorepo Packages Documented Here
 
 1. **`@stacklenzz/server`**: Backend telemetry SDK with dedicated modules for Express (`/express`), NestJS (`/nestjs`), and general Node.js frameworks like Fastify, Koa, Hono, and Hapi (`/core`). Features automatic 5xx error intelligence, breadcrumbs, OpenTelemetry tracing, Prometheus metrics, and a pluggable DB crash log adaptor (`crashLogAdaptor`).
-2. **`@stacklenzz/ui`**: Standalone React/Next.js dashboard components powered by native React Context (zero Redux dependencies required) and 6 runtime themes.
+2. **`@stacklenzz/ui`**: Standalone React/Next.js dashboard components powered by native React Context and 6 runtime themes.
 3. **`@stacklenzz/cli`**: Zero-config CLI (`stacklenzz dashboard`, `stacklenzz doctor`, `stacklenzz init`).
 
 ---

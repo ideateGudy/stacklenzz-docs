@@ -24,6 +24,7 @@ import {
   Sparkles,
   Terminal,
   Zap,
+  Bot,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { StacklenzzLogo } from "./components/StacklenzzLogo";
@@ -86,7 +87,7 @@ const LIVE_SERVER_LOGS = [
 export default function LandingPage() {
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [codeFramework, setCodeFramework] = useState<"express" | "nestjs" | "react" | "nextjs">("express");
+  const [codeFramework, setCodeFramework] = useState<"express" | "nestjs" | "fastify" | "koa" | "mcp" | "react" | "nextjs">("express");
   const [activeLogIdx, setActiveLogIdx] = useState(0);
 
   // Cycle live server telemetry stream every 3.2 seconds
@@ -155,13 +156,62 @@ import { PaymentController } from "./payment.controller";
     ObservabilityModule.forRoot({
       serviceName: "payment-service",
       environment: process.env.NODE_ENV || "production",
-      enableMetrics: true,
-      enableTracing: true,
+      autoInitTracing: true,
     }),
   ],
   controllers: [PaymentController],
 })
 export class AppModule {}`,
+    },
+    fastify: {
+      file: "server.ts",
+      lang: "Fastify",
+      status: "listening :3000",
+      code: `import Fastify from "fastify";
+import { fastifyObservability } from "@stacklenzz/server/fastify";
+
+const app = Fastify();
+
+// 1-line plugin adapter for Fastify
+await app.register(fastifyObservability, {
+  serviceName: "fastify-billing",
+  environment: "production",
+});
+
+await app.listen({ port: 3000 });`,
+    },
+    koa: {
+      file: "app.ts",
+      lang: "Koa",
+      status: "listening :3000",
+      code: `import Koa from "koa";
+import { koaObservability } from "@stacklenzz/server/koa";
+
+const app = new Koa();
+
+// 1-line middleware adapter for Koa
+app.use(koaObservability({
+  serviceName: "koa-auth",
+  environment: "production",
+}));
+
+app.listen(3000);`,
+    },
+    mcp: {
+      file: ".cursor/mcp.json",
+      lang: "Agentic AI (MCP)",
+      status: "connected",
+      code: `{
+  "mcpServers": {
+    "stacklenzz": {
+      "command": "npx",
+      "args": ["-y", "@stacklenzz/mcp"],
+      "env": {
+        "STACKLENZZ_URL": "http://localhost:5000/api/observability/stats"
+      }
+    }
+  }
+}`,
     },
     react: {
       file: "src/App.tsx",
@@ -461,7 +511,7 @@ export default function AdminObservabilityPage() {
           transition={{ duration: 0.55, delay: 0.22, ease: "easeOut" }}
           className="text-sm sm:text-lg md:text-xl text-slate-400 max-w-[760px] mx-auto mb-6 text-center leading-relaxed relative z-10 px-4"
         >
-          A production-grade instrumentation toolkit providing Express and NestJS telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React &amp; Next.js admin dashboards.
+          A production-grade instrumentation toolkit providing Express, NestJS, Fastify &amp; Koa telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React &amp; Next.js admin dashboards.
         </motion.p>
 
         {/* Real-time Server Log Console Stream (Continuous Observability Simulation) */}
@@ -632,14 +682,14 @@ export default function AdminObservabilityPage() {
           style={{ textAlign: "center", marginBottom: "3rem" }}
         >
           <h2 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 0.5rem 0" }}>
-            The 3 Pillars of Stacklenzz
+            The Stacklenzz Ecosystem
           </h2>
           <p style={{ color: "#94a3b8", fontSize: "0.95rem", margin: 0 }}>
-            Everything you need for backend instrumentation, dashboard rendering, and tooling.
+            Everything you need for backend instrumentation, dashboard rendering, AI context, and tooling.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 w-full">
           {/* Pillar 1 */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
@@ -668,17 +718,17 @@ export default function AdminObservabilityPage() {
               @stacklenzz/server
             </h3>
             <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
-              Plug-and-play middleware for Express and NestJS. Exposes <code>/metrics</code> for Prometheus scrapers, Winston JSON logging, and error tracking with automatic request-response latency percentiles (p50, p95, p99).
+              Plug-and-play middleware for Express, NestJS, Fastify, & Koa. Prometheus <code>/metrics</code>, Winston logs, OTEL traces, Slack/Discord alerts, and SLOs.
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.82rem", color: "#cbd5e1" }}>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#10b981" /> Express <code>setupObservability(app)</code>
+                <CheckCircle2 size={14} color="#10b981" /> Express & NestJS 1-line setup
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#10b981" /> NestJS <code>ObservabilityModule.forRoot()</code>
+                <CheckCircle2 size={14} color="#10b981" /> Fastify & Koa adapters
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#10b981" /> Breadcrumbs & Error Fingerprinting
+                <CheckCircle2 size={14} color="#10b981" /> Zero-cost Webhook Alerts & SLOs
               </li>
             </ul>
             <Link
@@ -725,17 +775,17 @@ export default function AdminObservabilityPage() {
               @stacklenzz/ui
             </h3>
             <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
-              Embeddable observability dashboard package with 6 pre-built layout views, 6 runtime color themes (Tokyo Night, Nord, Dracula, etc.), and deep stack-trace inspection.
+              Embeddable React dashboard with Trace Waterfall UI, SLO & Error Budget Cards, Background Job Monitoring, and 6 runtime color themes.
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.82rem", color: "#cbd5e1" }}>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#38bdf8" /> Native React component: <code>&lt;ObservabilityDashboard /&gt;</code>
+                <CheckCircle2 size={14} color="#38bdf8" /> Trace Waterfall & SLO Cards
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#38bdf8" /> 6 Runtime Theme Switchers
+                <CheckCircle2 size={14} color="#38bdf8" /> Jobs & Queue Monitoring
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#38bdf8" /> Live Auto-polling & Mock Fallback Mode
+                <CheckCircle2 size={14} color="#38bdf8" /> 6 Theme Switchers
               </li>
             </ul>
             <Link
@@ -754,7 +804,64 @@ export default function AdminObservabilityPage() {
             </Link>
           </motion.div>
 
-          {/* Pillar 3 */}
+          {/* Pillar 3: MCP Server */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.2 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col relative overflow-hidden"
+          >
+            <div
+              style={{
+                width: "44px",
+                height: "44px",
+                borderRadius: "10px",
+                backgroundColor: "rgba(168, 85, 247, 0.15)",
+                color: "#c084fc",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "1.25rem",
+              }}
+            >
+              <Bot size={22} />
+            </div>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0 0 0.6rem 0" }}>
+              @stacklenzz/mcp
+            </h3>
+            <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
+              Agentic AI integration via Model Context Protocol (MCP). Connect Cursor, Windsurf, or Claude Desktop to your live backend telemetry.
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.82rem", color: "#cbd5e1" }}>
+              <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <CheckCircle2 size={14} color="#c084fc" /> Live telemetry queries for AI
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <CheckCircle2 size={14} color="#c084fc" /> Crash log & stack trace analysis
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <CheckCircle2 size={14} color="#c084fc" /> Cursor & Claude Desktop ready
+              </li>
+            </ul>
+            <Link
+              href="/docs#mcp-server"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                color: "#c084fc",
+                fontSize: "0.84rem",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              MCP Integration Docs <ArrowRight size={14} />
+            </Link>
+          </motion.div>
+
+          {/* Pillar 4 */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -782,17 +889,17 @@ export default function AdminObservabilityPage() {
               @stacklenzz/cli
             </h3>
             <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
-              Command-line companion for developer happiness. Auto-detects Next.js App or Pages router, scaffolds dashboard routes, and validates server health with <code>stacklenzz doctor</code>.
+              Command-line companion for developer happiness. Auto-detects Next.js App/Pages router and scaffolds dashboard routes with 1 command.
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.82rem", color: "#cbd5e1" }}>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz dashboard</code> - Auto-scaffold
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz doctor</code> - Health validation
+                <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz doctor</code> - Health check
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz init</code> - Configuration generator
+                <CheckCircle2 size={14} color="#34d399" /> Zero extra configuration required
               </li>
             </ul>
             <Link
@@ -817,7 +924,7 @@ export default function AdminObservabilityPage() {
       <section className="max-w-[1100px] mx-auto my-6 sm:my-16 px-4 w-full box-border">
         {/* Framework Tabs Bar */}
         <div className="flex items-center justify-center gap-2 mb-4 flex-wrap w-full">
-          {(["express", "nestjs", "react", "nextjs"] as const).map((fw) => (
+          {(["express", "nestjs", "fastify", "koa", "mcp", "react", "nextjs"] as const).map((fw) => (
             <button
               key={fw}
               onClick={() => setCodeFramework(fw)}

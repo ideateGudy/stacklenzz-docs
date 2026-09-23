@@ -2,7 +2,14 @@
 
 @theme {
   --color-background: #090d16;
-  --color-foreground: #f1f5f9;
+  --color-foreground: #f8fafc;
+  --color-stack-indigo: #6366f1;
+  --color-stack-blue: #3b82f6;
+  --color-stack-cyan: #06b6d4;
+  --color-stack-dark: #090d16;
+  --color-stack-sidebar: #0f172a;
+  --color-stack-card: #111827;
+  --color-stack-border: #1e293b;
 }
 
 @layer base {
@@ -11,11 +18,11 @@
   }
   
   html, body {
-    @apply m-0 p-0 w-full max-w-[100vw] overflow-x-hidden bg-background text-foreground;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    @apply m-0 p-0 w-full max-w-[100vw] overflow-x-hidden bg-[#090d16] text-slate-100;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 
-  /* Custom Modern Scrollbar */
+  /* Custom Stacklenzz Modern Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -24,11 +31,11 @@
     background: #090d16;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.25);
+    background: rgba(99, 102, 241, 0.35);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.7);
   }
   
   pre {
@@ -41,4 +48,27 @@
     background: rgba(255, 255, 255, 0.15);
     border-radius: 9999px;
   }
+}
+
+/* Stacklenzz active indicators */
+.nest-active-indicator {
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 3px;
+  background-color: #6366f1;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.7);
+}
+
+.nest-toc-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  background-color: #6366f1;
+  transition: top 0.2s ease, height 0.2s ease;
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.6);
 }

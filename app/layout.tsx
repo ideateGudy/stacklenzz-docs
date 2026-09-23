@@ -11,10 +11,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://stacklenzz.vercel.app"),
   title: "Stacklenzz - Developer-First Node.js & React Observability",
-  description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
+  description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express, NestJS, Fastify & Koa",
   openGraph: {
     title: "Stacklenzz - Developer-First Node.js & React Observability",
-    description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
+    description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express, NestJS, Fastify & Koa",
     url: "https://stacklenzz.vercel.app",
     siteName: "Stacklenzz",
     locale: "en_US",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Stacklenzz - Developer-First Node.js & React Observability",
-    description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
+    description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express, NestJS, Fastify & Koa",
   },
 };
 
